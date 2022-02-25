@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "tsc: build - tsconfig.json"
+		},
+		{
+			"type": "yarn",
+			"task": "build",
+			"problemMatcher": [],
+			"label": "yarn: build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "yarn",
+			"task": "dev",
+			"problemMatcher": [],
+			"label": "yarn: dev",
+			"group": "build"
+		},
+		{
+			"type": "yarn",
+			"task": "install",
+			"problemMatcher": [],
+			"label": "yarn: install"
+		},
+		{
+			"type": "yarn",
+			"task": "script",
+			"problemMatcher": [],
+			"label": "yarn: script"
+		},
+		{
+			"type": "yarn",
+			"task": "start",
+			"problemMatcher": [],
+			"label": "yarn: start"
+		}
+	]
+}

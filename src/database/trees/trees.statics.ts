@@ -1,0 +1,106 @@
+import { ITree, ITreeDocument, ITreeModel } from './trees.types';
+
+export async function findOneOrCreate(
+//  this: ITreeModel, //Dummy for invoking findOne method
+  Tree: ITree
+): Promise<ITreeDocument> {
+  const record = await this.findOne(Tree); //Find one returns the first match NB!
+  if (record) {
+    return record;
+  } else {
+    return this.create(Tree);
+  }
+}
+
+//Returns array
+export async function findByGenusName(
+//  this: ITreeModel,
+  genusname: string
+): Promise<ITreeDocument[]> {
+  return this.find({ 'genus.name': genusname }).select({
+    'genus.name': 1,
+    'species.name': 1,
+    'subspecies.name': 1,
+    'variety.name': 1,
+  });
+}
+
+//Returns array
+export async function findByGenusSpeciesNames(
+//  this: ITreeModel,
+  genusname: string,
+  speciesname: string
+): Promise<ITreeDocument[]> {
+  return this.find({
+    'genus.name': genusname,
+    'species.name': speciesname,
+  }).select({
+    'genus.name': 1,
+    'species.name': 1,
+    'subspecies.name': 1,
+    'variety.name': 1,
+  });
+}
+
+//Returns array
+export async function findByCommonNameRegex(
+//  this: ITreeModel,
+  regex: string
+): Promise<ITreeDocument[]> {
+  return this.find({ 'cnames.names': { $regex: regex, $options: 'i' } }).select(
+    {
+      'genus.name': 1,
+      'species.name': 1,
+      'subspecies.name': 1,
+      'variety.name': 1,
+      cnames: 1,
+    }
+  );
+}
+
+//Returns array
+export async function findByCommonNameLanguageRegex(
+ // this: ITreeModel,
+  language: string,
+  regex: string
+): Promise<ITreeDocument[]> {
+  return this.find({
+    'cnames.language': language,
+    'cnames.names': { $regex: regex, $options: 'i' },
+  }).select({
+    'genus.name': 1,
+    'species.name': 1,
+    'subspecies.name': 1,
+    'variety.name': 1,
+    'cnames.$': 1, //Only returns th names in the specified language
+  });
+}
+
+//Returns array
+export async function findBySpeciesNameRegex(
+//  this: ITreeModel,
+  regex: string
+): Promise<ITreeDocument[]> {
+  return this.find({ 'species.name': { $regex: regex, $options: 'i' } }).select(
+    {
+      'genus.name': 1,
+      'species.name': 1,
+      'subspecies.name': 1,
+      'variety.name': 1,
+    }
+  );
+}
+
+//Returns array
+export async function findByGroup(
+//  this: ITreeModel,
+  group: string
+): Promise<ITreeDocument[]> {
+  return this.find({ group: group }).select({
+    'genus.name': 1,
+    'species.name': 1,
+    'subspecies.name': 1,
+    'variety.name': 1,
+    group: 1,
+  });
+}

@@ -1,0 +1,44 @@
+import * as Mongoose from 'mongoose';
+import { TreeModel } from './trees/trees.model';
+
+let database: Mongoose.Connection;
+
+export const connect = () => {
+  // add your own uri below
+  const uri =
+    //  'mongodb+srv://<treename>:<password>@cluster0-v6q0g.mongodb.net/test?retryWrites=true&w=majority';
+    // 'mongodb://localhost:27017/TreesTest'; //SET CORRECT DB NAME HERE
+    'mongodb://localhost:27017/SATrees'; //SET CORRECT DB NAME HERE
+
+  if (database) {
+    //Avoiding connecting again
+    return;
+  }
+
+  Mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  });
+
+  database = Mongoose.connection;
+
+  database.once('open', async () => {
+    console.log('Connected to database ' + uri);
+  });
+
+  database.on('error', () => {
+    console.log('Error connecting to database' + uri);
+  });
+
+  return {
+    TreeModel,
+  };
+};
+
+export const disconnect = () => {
+  if (!database) {
+    return;
+  }
+  Mongoose.disconnect();
+};
