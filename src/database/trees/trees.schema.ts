@@ -76,9 +76,11 @@ const TreeSchema = new Mongoose.Schema(
   }
 );
 
-// NOTE: virtuals are not automatically
-//included in query responses, pass {virtuals: true} to toJSON
-
+//NBNB
+//NOTE1: fields on which virtuals are based are only available if included in the project! field of the query
+//    SO CHECK IF FIELDS ARE DEFINED
+//NOTE2: virtuals are not automatically included in query responses, pass {virtuals: true} to toJSON
+//
 //Virtual fields (must be made visible in trees.types interface on ITreeDocument)
 //TreeSchema.virtual('binomial').get(function (this: ITreeDocument): string {
 //returns e.g. "Acacia erioloba"
@@ -119,15 +121,24 @@ TreeSchema.virtual('scientificName').get(function (this: ITreeDocument): string 
 });
 
 TreeSchema.virtual('firstname').get(function (this: ITreeDocument): string {
-  //returns e.g. first common name entries for english/afrikaans
-  for (let cname of this.cnames) {
-    if (cname.language == 'Eng') {
-      var engname = cname.names[0];
-    } else if (cname.language == 'Afr') {
-      var afrname = cname.names[0];
+  //returns  first common name entries for english/afrikaans
+  let firstname: string = '';
+  if (this.cnames) {
+    for (let cname of this.cnames) {
+      if (cname.language == 'Eng') {
+        if (cname.names[0]) {
+          var engname = cname.names[0];
+        }
+      } else if (cname.language == 'Afr') {
+        if (cname.names[0]) {
+          var afrname = cname.names[0];
+        }
+      }
     }
+// console.log(engname + '/' + afrname);
+    firstname = engname.trim() + '/' + afrname.trim();
   }
-  return (engname.trim() + '/' + afrname.trim());
+  return firstname;
 });
 
 //Register static methods (must be imported from trees.statics and made visible in trees.types)

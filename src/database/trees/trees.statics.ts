@@ -80,7 +80,8 @@ export async function findByCommonNameLanguageRegex(
     'variety.name': 1,
     'firstname': 1,
     'group': 1,
-//    'cnames.$': 1 //Return only matching names from array
+//    'cnames.$': 1 //Return only matching names from array  -> break firstname virtual
+    'cnames': 1
   });
 }
 
