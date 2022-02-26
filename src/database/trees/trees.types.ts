@@ -56,6 +56,8 @@ export interface ITreeDocument extends ITree, Document {
   //  binomial: (this: ITreeDocument) => string;
   identity: (this: ITreeDocument) => string;
   scientificName: (this: ITreeDocument) => string;
+  firstname: (this: ITreeDocument) => string;
+
 }
 
 //db create/update/find are called on TreeModel and return TreeDocument

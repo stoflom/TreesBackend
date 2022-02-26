@@ -22,6 +22,8 @@ export async function findByGenusName(
     'species.name': 1,
     'subspecies.name': 1,
     'variety.name': 1,
+    'firstname': 1,
+    'group':1
   });
 }
 
@@ -39,6 +41,8 @@ export async function findByGenusSpeciesNames(
     'species.name': 1,
     'subspecies.name': 1,
     'variety.name': 1,
+    'firstname': 1,
+    'group':1
   });
 }
 
@@ -53,7 +57,9 @@ export async function findByCommonNameRegex(
       'species.name': 1,
       'subspecies.name': 1,
       'variety.name': 1,
-      cnames: 1,
+      'group':1,
+      'firstname': 1,
+      'cnames': 1
     }
   );
 }
@@ -72,7 +78,9 @@ export async function findByCommonNameLanguageRegex(
     'species.name': 1,
     'subspecies.name': 1,
     'variety.name': 1,
-    'cnames.$': 1, //Only returns th names in the specified language
+    'firstname': 1,
+    'group': 1,
+//    'cnames.$': 1 //Return only matching names from array
   });
 }
 
@@ -87,6 +95,8 @@ export async function findBySpeciesNameRegex(
       'species.name': 1,
       'subspecies.name': 1,
       'variety.name': 1,
+      'firstname': 1,
+      'group': 1
     }
   );
 }
@@ -101,6 +111,8 @@ export async function findByGroup(
     'species.name': 1,
     'subspecies.name': 1,
     'variety.name': 1,
-    group: 1,
+    'firstname': 1,
+    'group': 1,
+    'cnames': 1
   });
 }

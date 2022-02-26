@@ -97,9 +97,7 @@ TreeSchema.virtual('identity').get(function (this: ITreeDocument): string {
   return identity;
 });
 
-TreeSchema.virtual('scientificName').get(function (
-  this: ITreeDocument
-): string {
+TreeSchema.virtual('scientificName').get(function (this: ITreeDocument): string {
   //returns e.g. "Acacia erioloba auth. subsp. xxx auth. var. yyy auth."
   let identity: string = this.genus.name + ' ' + this.species.name;
   if (this.species.authority) {
@@ -118,6 +116,18 @@ TreeSchema.virtual('scientificName').get(function (
     }
   }
   return identity;
+});
+
+TreeSchema.virtual('firstname').get(function (this: ITreeDocument): string {
+  //returns e.g. first common name entries for english/afrikaans
+  for (let cname of this.cnames) {
+    if (cname.language == 'Eng') {
+      var engname = cname.names[0];
+    } else if (cname.language == 'Afr') {
+      var afrname = cname.names[0];
+    }
+  }
+  return (engname.trim() + '/' + afrname.trim());
 });
 
 //Register static methods (must be imported from trees.statics and made visible in trees.types)
