@@ -1,3 +1,4 @@
+import { getUnpackedSettings } from 'http2';
 import { ITree, ITreeDocument, ITreeModel } from './trees.types';
 
 export async function findOneOrCreate(
@@ -106,9 +107,28 @@ export async function findByCommonNameLanguageRegex(
             $arrayElemAt: ['$cnames', { $indexOfArray: ['$cnames.language', language] }]
           }
         }
-      }, {
+      },
+      {
+        $addFields: {
+          firstname: {
+            $arrayElemAt: [
+              '$cnames.names', 0
+            ]
+          },
+          identity: {
+            $trim: {
+              input: {
+                $concat: ["$genus.name", " ", "$species.name", " ",
+                  { $ifNull: ["$subspecies.name", "$variety.name", " "] }
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
         $match: {
-          'cnames.names': { $regex: regex, $options: 'i' } 
+          'cnames.names': { $regex: regex, $options: 'i' }
         }
       }
     ]
