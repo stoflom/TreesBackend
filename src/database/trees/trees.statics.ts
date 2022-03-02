@@ -87,7 +87,7 @@ export async function findByCommonNameRegex(
 // }
 
 //Note: aggregates return random jason and mongoos will not add
-// the id virtual variable by itself.
+// virtual variables by itself, they must be added manually.
 export async function findByCommonNameLanguageRegex(
   // this: ITreeModel,
   language: string,
