@@ -66,7 +66,7 @@ const TreeSchema = new Mongoose.Schema(
     synonyms: { type: [SynonymSchema], default: undefined }, // default : undefined stops mongoose from making blank arrays
     cnames: { type: [CNamesSChema], default: undefined },
     vegtypes: { type: [String], default: undefined },
-    group: { type: [String], default: undefined },
+    group: { type: String, default: undefined },
   },
   {
     timestamps: true, //Add timestamps, __V (version) will also ne added automatically

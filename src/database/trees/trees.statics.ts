@@ -97,11 +97,17 @@ export async function findByCommonNameLanguageRegex(
     [
       {
         $project: {
+          // 'genus.name': 1,
+          // 'species.name': 1,
+          // 'subspecies.name': 1,
+          // 'variety.name': 1,
+          // 'firstname': 1,
+          // 'group': 1,
           'genus.name': 1,
           'species.name': 1,
           'subspecies.name': 1,
           'variety.name': 1,
-          'firstname': 1,
+ //         'firstname': 1,
           'group': 1,
           'cnames': {     //only matched name
             $arrayElemAt: ['$cnames', { $indexOfArray: ['$cnames.language', language] }]
@@ -109,11 +115,14 @@ export async function findByCommonNameLanguageRegex(
         }
       },
       {
+        $match: {
+          'cnames.names': { $regex: regex, $options: 'i' }
+        }
+      },
+      {
         $addFields: {
           firstname: {
-            $arrayElemAt: [
-              '$cnames.names', 0
-            ]
+            $arrayElemAt: [ '$cnames.names', 0   ]
           },
           identity: {
             $trim: {
@@ -127,8 +136,8 @@ export async function findByCommonNameLanguageRegex(
         }
       },
       {
-        $match: {
-          'cnames.names': { $regex: regex, $options: 'i' }
+        $project: {
+            cnames: 0
         }
       }
     ]
