@@ -1,8 +1,8 @@
-import { getUnpackedSettings } from 'http2';
+//import { getUnpackedSettings } from 'http2';
 import { ITree, ITreeDocument, ITreeModel } from './trees.types';
 
 export async function findOneOrCreate(
-  //  this: ITreeModel, //Dummy for invoking findOne method
+//  this: ITreeModel, //Dummy for invoking findOne method
   Tree: ITree
 ): Promise<ITreeDocument> {
   const record = await this.findOne(Tree); //Find one returns the first match NB!
@@ -15,7 +15,7 @@ export async function findOneOrCreate(
 
 //Returns array
 export async function findByGenusName(
-  //  this: ITreeModel,
+//  this: ITreeModel,
   genusname: string
 ): Promise<ITreeDocument[]> {
   return this.find({ 'genus.name': genusname }).select({
@@ -30,7 +30,7 @@ export async function findByGenusName(
 
 //Returns array
 export async function findByGenusSpeciesNames(
-  //  this: ITreeModel,
+//  this: ITreeModel,
   genusname: string,
   speciesname: string
 ): Promise<ITreeDocument[]> {
@@ -49,7 +49,7 @@ export async function findByGenusSpeciesNames(
 
 //Returns array
 export async function findByCommonNameRegex(
-  //  this: ITreeModel,
+//  this: ITreeModel,
   regex: string
 ): Promise<ITreeDocument[]> {
   return this.find({ 'cnames.names': { $regex: regex, $options: 'i' } }).select(
@@ -86,8 +86,8 @@ export async function findByCommonNameRegex(
 //   });
 // }
 
-
-//Returns array
+//Note: aggregates return random jason and mongoos will not add
+// the id virtual variable by itself.
 export async function findByCommonNameLanguageRegex(
   // this: ITreeModel,
   language: string,
@@ -97,17 +97,10 @@ export async function findByCommonNameLanguageRegex(
     [
       {
         $project: {
-          // 'genus.name': 1,
-          // 'species.name': 1,
-          // 'subspecies.name': 1,
-          // 'variety.name': 1,
-          // 'firstname': 1,
-          // 'group': 1,
           'genus.name': 1,
           'species.name': 1,
           'subspecies.name': 1,
           'variety.name': 1,
- //         'firstname': 1,
           'group': 1,
           'cnames': {     //only matched name
             $arrayElemAt: ['$cnames', { $indexOfArray: ['$cnames.language', language] }]
@@ -132,7 +125,8 @@ export async function findByCommonNameLanguageRegex(
                 ]
               }
             }
-          }
+          },
+          id: "$_id"  //add id virtual manually
         }
       },
       {

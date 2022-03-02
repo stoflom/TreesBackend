@@ -32,7 +32,7 @@ export const connect = () => {
   });
 
   return {
-    TreeModel,
+    TreeModel
   };
 };
 
