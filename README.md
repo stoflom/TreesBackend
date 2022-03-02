@@ -15,6 +15,9 @@ To run main (test.ts) do:
 To start the server do:
     yarn start
 
+To get debug logging do:
+    DEBUG=express:*  yarn start
+
 
 # EXAMPLES of use:
 # ROUTES: (To pretty print pipe response through jq: " | jq '.' ")

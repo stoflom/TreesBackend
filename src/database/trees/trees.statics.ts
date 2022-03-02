@@ -15,7 +15,6 @@ export async function findOneOrCreate(
 
 //Returns array
 export async function findByGenusName(
-//  this: ITreeModel,
   genusname: string
 ): Promise<ITreeDocument[]> {
   return this.find({ 'genus.name': genusname }).select({
@@ -30,7 +29,6 @@ export async function findByGenusName(
 
 //Returns array
 export async function findByGenusSpeciesNames(
-//  this: ITreeModel,
   genusname: string,
   speciesname: string
 ): Promise<ITreeDocument[]> {
@@ -49,7 +47,6 @@ export async function findByGenusSpeciesNames(
 
 //Returns array
 export async function findByCommonNameRegex(
-//  this: ITreeModel,
   regex: string
 ): Promise<ITreeDocument[]> {
   return this.find({ 'cnames.names': { $regex: regex, $options: 'i' } }).select(
@@ -65,7 +62,7 @@ export async function findByCommonNameRegex(
   );
 }
 
-// //Returns array
+// //Returns array, actually finds regex in any language
 // export async function findByCommonNameLanguageRegex(
 //  // this: ITreeModel,
 //   language: string,
@@ -73,7 +70,7 @@ export async function findByCommonNameRegex(
 // ): Promise<ITreeDocument[]> {
 //   return this.find({
 //     'cnames.language': language,
-//     'cnames.names': { $regex: regex, $options: 'i' },
+//     'cnames.names':{$elemMatch: { $regex: regex, $options: 'i' } },
 //   }).select({
 //     'genus.name': 1,
 //     'species.name': 1,
@@ -81,15 +78,13 @@ export async function findByCommonNameRegex(
 //     'variety.name': 1,
 //     'firstname': 1,
 //     'group': 1,
-// //    'cnames.$': 1 //Return only matching names from array  -> break firstname virtual
-//     'cnames': 1
+//     'cnames': 1 
 //   });
 // }
 
 //Note: aggregates return random jason and mongoos will not add
 // virtual variables by itself, they must be added manually.
 export async function findByCommonNameLanguageRegex(
-  // this: ITreeModel,
   language: string,
   regex: string
 ): Promise<ITreeDocument[]> {
@@ -115,7 +110,7 @@ export async function findByCommonNameLanguageRegex(
       {
         $addFields: {
           firstname: {
-            $arrayElemAt: [ '$cnames.names', 0   ]
+            $arrayElemAt: [ '$cnames.names', 0   ]  //will not always be the matching name 
           },
           identity: {
             $trim: {
@@ -140,7 +135,6 @@ export async function findByCommonNameLanguageRegex(
 
 //Returns array
 export async function findBySpeciesNameRegex(
-  //  this: ITreeModel,
   regex: string
 ): Promise<ITreeDocument[]> {
   return this.find({ 'species.name': { $regex: regex, $options: 'i' } }).select(
@@ -157,7 +151,6 @@ export async function findBySpeciesNameRegex(
 
 //Returns array
 export async function findByGroup(
-  //  this: ITreeModel,
   group: string
 ): Promise<ITreeDocument[]> {
   return this.find({ group: group }).select({
