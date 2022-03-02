@@ -1,5 +1,5 @@
 import * as Mongoose from 'mongoose';
-import { ITreeDocument } from './trees.types';
+import { ITreeDocument, ITreeModel } from './trees.types';
 
 import {
   findOneOrCreate,
@@ -142,7 +142,7 @@ TreeSchema.virtual('firstname').get(function (this: ITreeDocument): string {
 });
 
 //Register static methods (must be imported from trees.statics and made visible in trees.types)
-TreeSchema.statics.findOneOrCreate = findOneOrCreate;
+TreeSchema.statics.findOneOrCreate  = findOneOrCreate;
 TreeSchema.statics.findByGenusName = findByGenusName;
 TreeSchema.statics.findByGenusSpeciesNames = findByGenusSpeciesNames;
 TreeSchema.statics.findByCommonNameRegex = findByCommonNameRegex;

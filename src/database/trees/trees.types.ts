@@ -50,7 +50,9 @@ export interface ITree {
   __V?: string;
 }
 
-//db queries return TreeDocument
+
+
+//db queries return ITreeDocument
 export interface ITreeDocument extends ITree, Document {
   //Virtuals are accessible on TreeDocument, similar to _id property which are built in by mongoose
   //  binomial: (this: ITreeDocument) => string;
