@@ -2,7 +2,7 @@
 import { ITree, ITreeDocument, ITreeModel } from './trees.types';
 
 export async function findOneOrCreate(
-//  this: ITreeModel, //Dummy for invoking findOne method
+  //  this: ITreeModel, //Dummy for invoking findOne method
   Tree: ITree
 ): Promise<ITreeDocument> {
   const record = await this.findOne(Tree); //Find one returns the first match NB!
@@ -89,46 +89,54 @@ export async function findByCommonNameLanguageRegex(
   regex: string
 ): Promise<ITreeDocument[]> {
   return this.aggregate(
-    [
-      {
-        $project: {
-          'genus.name': 1,
-          'species.name': 1,
-          'subspecies.name': 1,
-          'variety.name': 1,
-          'group': 1,
-          'cnames': {     //only matched name
-            $arrayElemAt: ['$cnames', { $indexOfArray: ['$cnames.language', language] }]
-          }
-        }
-      },
-      {
-        $match: {
-          'cnames.names': { $regex: regex, $options: 'i' }
-        }
-      },
-      {
-        $addFields: {
-          firstname: {
-            $arrayElemAt: [ '$cnames.names', 0   ]  //will not always be the matching name 
-          },
-          identity: {
-            $trim: {
-              input: {
-                $concat: ["$genus.name", " ", "$species.name", " ",
-                  { $ifNull: ["$subspecies.name", "$variety.name", " "] }
-                ]
-              }
+    [{    //Only interested in trees where this language exists
+      $match: {
+        'cnames.language': language
+      }
+    }, {
+      $project: {   //Only interested in these language entries
+        genus: 1,
+        species: 1,
+        cnames: {
+          $arrayElemAt: [
+            '$cnames',
+            {
+              $indexOfArray: [
+                '$cnames.language',
+                language
+              ]
             }
-          },
-          id: "$_id"  //add id virtual manually
-        }
-      },
-      {
-        $project: {
-            cnames: 0
+          ]
         }
       }
+    },
+    {
+      $match: {     //Only interested in trees where the cname mathes the regex
+        'cnames.names': { $regex: regex, $options: 'i' }
+      }
+    },
+    {
+      $addFields: {
+        firstname: {      //Need a firstname for display
+          $arrayElemAt: ['$cnames.names', 0]  //will not always be the matching name 
+        },
+        identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
+          $trim: {
+            input: {
+              $concat: ["$genus.name", " ", "$species.name", " ",
+                { $ifNull: ["$subspecies.name", "$variety.name", " "] }
+              ]
+            }
+          }
+        },
+        id: "$_id"  //add id virtual manually sonce mongoos won't for aggregates.
+      }
+    },
+    {
+      $project: {
+        cnames: 0
+      }
+    }
     ]
   );
 }
