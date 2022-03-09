@@ -26,6 +26,7 @@ const GenusSchema = new Mongoose.Schema(
     engnames: { type: [String], default: undefined },
   },
   {
+    _id: false ,
     timestamps: true, //Add timestamps, __V (version) will also ne added automatically
     toJSON: { virtuals: true }, //virtuals will be returned in toJSON
     toObject: { virtuals: true }, //virtuals will be included in toObject
