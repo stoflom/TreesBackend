@@ -3,7 +3,7 @@ import { connect } from './database/database';
 import { json } from 'body-parser';
 import { urlencoded } from 'body-parser';
 import { treesRouter } from './routes/routes';
-import Morgan = require('morgan');
+//import Morgan = require('morgan');
 
 const app = express();
 const port = 5002;
