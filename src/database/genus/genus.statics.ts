@@ -15,15 +15,14 @@ export async function findOneOrCreate(
 
 //Returns array
 export async function findByGenusName(
-  genusname: string
-): Promise<IGenusDocument[]> {
-  return this.find({ 'genus.name': genusname }).select({
+  name: string
+): Promise<IGenusDocument> {
+  return this.find({ 'name': name }).select({
     'name': 1,
     'authority': 1,
     'family': 1,
     'afrnames': 1,
     'engnames': 1,
-
   });
 }
 

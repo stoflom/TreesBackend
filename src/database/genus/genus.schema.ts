@@ -1,5 +1,9 @@
 import * as Mongoose from 'mongoose';
 
+import {
+  findByGenusName,
+  findByCommonNameLanguageRegex, 
+} from './genus.statics';
 
 const GCommentSchema = new Mongoose.Schema(
   {
@@ -32,7 +36,9 @@ const GenusSchema = new Mongoose.Schema(
 
 
 //Register static methods (must be imported from Genuss.statics and made visible in Genuss.types)
-
+GenusSchema.statics.findByGenusName = findByGenusName;
+GenusSchema.statics.findByCommonNameLanguageRegex =
+  findByCommonNameLanguageRegex;
 
 //Register instance methods (must be imported from Genuss.methods and made visible in Genuss.types)
 // GenusSchema.methods.setLastUpdated = setLastUpdated;

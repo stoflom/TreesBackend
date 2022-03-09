@@ -2,7 +2,7 @@ import * as express from 'express';
 import { connect } from './database/database';
 import { json } from 'body-parser';
 import { urlencoded } from 'body-parser';
-import { treesRouter } from './routes/routes';
+import { theRouter } from './routes/routes';
 //import Morgan = require('morgan');
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(json({ strict: true }));
 app.use(urlencoded({ extended: false }));
 //app.use(Morgan('combined')) ;
 
-app.use(treesRouter);
+app.use(theRouter);
 
 connect();
 
