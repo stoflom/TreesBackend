@@ -161,7 +161,14 @@ export async function findBySpeciesNameRegex(
 export async function findByGroup(
   group: string
 ): Promise<ITreeDocument[]> {
-  return this.find({ group: group }).select({
+  return this.find({ group: group })
+  // .populate(
+  //   {
+  //     path: 'genus',
+  //     select: 'genus.family'
+  //   }
+  //   )
+    .select({
     'genus.name': 1,
     'species.name': 1,
     'subspecies.name': 1,

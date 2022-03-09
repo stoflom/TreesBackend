@@ -14,7 +14,7 @@ import {
 const GenusSchema = new Mongoose.Schema(
   {
     name: { type: String, required: true },
-    id: { type: Mongoose.SchemaTypes.ObjectId, ref: 'GeneraSchema' },
+    id: { type: Mongoose.SchemaTypes.ObjectId, ref: 'IGenusDocument' },
   },
   { _id: false }
 );
@@ -56,7 +56,7 @@ const CNamesSChema = new Mongoose.Schema(
 const TreeSchema = new Mongoose.Schema(
   {
     //_id automatically added to ItreeDocument by inheritance from Document
-    genus: { type: GenusSchema, required: true },
+    genus: { type: GenusSchema, required: true},
     species: { type: SpeciesSchema, required: true },
     subspecies: SpeciesSchema,
     variety: SpeciesSchema,
@@ -89,6 +89,7 @@ const TreeSchema = new Mongoose.Schema(
 
 TreeSchema.virtual('identity').get(function (this: ITreeDocument): string {
   //returns e.g. "Acacia erioloba subsp. xxx var. yyy"
+  //let identity: string = this.genus.name + ' ' + this.species.name;
   let identity: string = this.genus.name + ' ' + this.species.name;
   if (this.subspecies) {
     identity += ' subsp. ' + this.subspecies.name;
@@ -135,14 +136,17 @@ TreeSchema.virtual('firstname').get(function (this: ITreeDocument): string {
         }
       }
     }
-// console.log(engname + '/' + afrname);
+    // console.log(engname + '/' + afrname);
     firstname = engname.trim() + '/' + afrname.trim();
   }
   return firstname;
 });
 
+
+
+
 //Register static methods (must be imported from trees.statics and made visible in trees.types)
-TreeSchema.statics.findOneOrCreate  = findOneOrCreate;
+TreeSchema.statics.findOneOrCreate = findOneOrCreate;
 TreeSchema.statics.findByGenusName = findByGenusName;
 TreeSchema.statics.findByGenusSpeciesNames = findByGenusSpeciesNames;
 TreeSchema.statics.findByCommonNameRegex = findByCommonNameRegex;
