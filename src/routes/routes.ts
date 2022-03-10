@@ -118,7 +118,7 @@ theRouter.get(
 
 
 
-//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/gen/adenia | jq '.' (pretty print pipe)
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genera/adenia | jq '.' (pretty print pipe)
 theRouter.get('/api/genera/:name', [], async (req: Request, res: Response) => {
   const genus: IGenusDocument[] = await GenusModel.findByGenusName(
     req.params.name
