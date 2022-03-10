@@ -13,8 +13,8 @@ export const theRouter = Router();
 
 //Most of these will only return the Id and Tree base name fields (genus, species, subspecies, variety -names)
 
-//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.' (pretty print pipe)
-theRouter.get('/api/genus/:name', [], async (req: Request, res: Response) => {
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/treegenus/adenia | jq '.' (pretty print pipe)
+theRouter.get('/api/treegenus/:name', [], async (req: Request, res: Response) => {
   const trees: ITreeDocument[] = await TreeModel.findByGenusName(
     req.params.name
   );
@@ -33,12 +33,11 @@ theRouter.get(
   }
 );
 
-//BROKEN BROKEN try Afr/candle
-//test: curl -X GET  localhost:5002/api/cnlan/Afr/vlam | jq '.'   //Afr names must contain 'vlam'
-// curl -X GET  'localhost:5002/api/cnlan/Afr/klimop$' | jq '.'   //A Afr name end with 'klimop'
-// curl -X GET  localhost:5002/api/cnlan/Afr/^bos | jq '.'        //A Afr name starts with 'bos'
-// curl -X GET  localhost:5002/api/cnlan/Afr/^\\*gif | jq '.'     //A Afr name starts with '*bos'
-// curl -X GET  'localhost:5002/api/cnlan/Afr/^\**rooi' | jq '.'  //A Afr name starts with 'rooi' or '*rooi'
+//test: curl -X GET  localhost:5002/api/cnlan/Afr/vlam | jq '.'   //Any Afr name must contain 'vlam'
+// curl -X GET  'localhost:5002/api/cnlan/Afr/klimop$' | jq '.'   //Any Afr name end with 'klimop'
+// curl -X GET  localhost:5002/api/cnlan/Afr/^bos | jq '.'        //Any Afr name starts with 'bos'
+// curl -X GET  localhost:5002/api/cnlan/Afr/^\\*gif | jq '.'     //Any Afr name starts with '*bos'
+// curl -X GET  'localhost:5002/api/cnlan/Afr/^\**rooi' | jq '.'  //Any Afr name starts with 'rooi' or '*rooi'
 // curl -X GET  localhost:5002/api/cnlan/Afr/^\\*\*rooi | jq '.'  //same as above
 //will return all names but only for the specified language
 theRouter.get(
@@ -66,9 +65,9 @@ theRouter.get(
   }
 );
 
-//Test: curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/genus/acacia/karroo | jq '.' (pretty print pipe)
+//Test: curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/treegs/acacia/karroo | jq '.' (pretty print pipe)
 theRouter.get(
-  '/api/genus/:gname/:sname',
+  '/api/treegs/:gname/:sname',
   [],
   async (req: Request, res: Response) => {
     const trees: ITreeDocument[] = await TreeModel.findByGenusSpeciesNames(
@@ -121,8 +120,8 @@ theRouter.get(
 
 
 
-//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genera/adenia | jq '.' (pretty print pipe)
-theRouter.get('/api/genera/:name', [], async (req: Request, res: Response) => {
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.' (pretty print pipe)
+theRouter.get('/api/genus/:name', [], async (req: Request, res: Response) => {
   const genus: IGenusDocument[] = await GenusModel.findByGenusName(
     req.params.name
   );

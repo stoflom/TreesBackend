@@ -10,8 +10,7 @@ export interface IGComment {
 export interface IGenus {
   name: string;
   family?: string;
-  afrnames?: [string];
-  engnames?: [string];
+  cnames?: [string];
   authority?: string;
   comments?: [IGComment];
 }

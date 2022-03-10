@@ -21,8 +21,7 @@ export async function findByGenusName(
     'name': 1,
     'authority': 1,
     'family': 1,
-    'afrnames': 1,
-    'engnames': 1,
+    'cnames': 1,
     'comments': 1,
   });
 }
