@@ -2,18 +2,21 @@
 
 import { Document, Model, Types } from 'mongoose';
 
+export interface IGComment {
+  text: string;
+  reference?: string;
+}
+
 export interface IGenus {
   name: string;
   family?: string;
   afrnames?: [string];
   engnames?: [string];
   authority?: string;
+  comments?: [IGComment];
 }
 
-export interface IGComment {
-  text: string;
-  reference?: string;
-}
+
 
 
 

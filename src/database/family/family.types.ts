@@ -1,19 +1,19 @@
 import * as Mongoose from 'mongoose';
 import { Document, Model, Types } from 'mongoose';
 
-export interface IFamily {
-  name: string;
-  afrname?: string;
-  engname?: string;
-  genuslist?: [string];
-  comments?: [string];
-}
 
 export interface IGComment {
   text: string;
   reference?: string;
 }
 
+export interface IFamily {
+  name: string;
+  afrnames?: [string];
+  engnames?: [string];
+  genuslist?: [string];
+  comments?: [IGComment];
+}
 
 
 //db queries return IFamilyDocument

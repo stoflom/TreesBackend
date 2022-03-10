@@ -3,6 +3,9 @@ import { TreeModel } from '../database/trees/trees.model';
 import { ITreeDocument } from '../database/trees/trees.types';
 import { GenusModel } from '../database/genus/genus.model';
 import { IGenusDocument } from '../database/genus/genus.types';
+import { FamilyModel } from '../database/family/family.model';
+import { IFamilyDocument } from '../database/family/family.types';
+
 
 
 export const theRouter = Router();
@@ -121,6 +124,15 @@ theRouter.get(
 //Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genera/adenia | jq '.' (pretty print pipe)
 theRouter.get('/api/genera/:name', [], async (req: Request, res: Response) => {
   const genus: IGenusDocument[] = await GenusModel.findByGenusName(
+    req.params.name
+  );
+  return res.status(200).json(genus);
+});
+
+
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/Anacardiaceae | jq '.' (pretty print pipe)
+theRouter.get('/api/family/:name', [], async (req: Request, res: Response) => {
+  const genus: IFamilyDocument[] = await FamilyModel.findByFamilyName(
     req.params.name
   );
   return res.status(200).json(genus);

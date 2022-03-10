@@ -21,7 +21,7 @@ const GenusSchema = new Mongoose.Schema(
     name: { type: String, required: true },
     authority: String,
     family: String,
-    comment: GCommentSchema,
+    comment: [GCommentSchema],
     afrnames: { type: [String], default: undefined }, // default : undefined stops mongoose from making blank arrays
     engnames: { type: [String], default: undefined },
   },

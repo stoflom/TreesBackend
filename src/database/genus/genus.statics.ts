@@ -23,6 +23,7 @@ export async function findByGenusName(
     'family': 1,
     'afrnames': 1,
     'engnames': 1,
+    'comments': 1,
   });
 }
 

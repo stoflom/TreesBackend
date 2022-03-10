@@ -27,8 +27,20 @@ export const connect = () => {
     console.log('Connected to database ' + uri);
   });
 
-  database.on('error', () => {
-    console.log('Error connecting to database' + uri);
+  database.on('error',  () => {
+    console.log('Database connection error' + uri);
+  });
+
+  database.on('error',  err => {
+    console.log('Database error' + err);
+  });
+
+  database.on('disconnected',  () => {
+    console.log('Database disconnected' + uri);
+  });
+
+  database.on('reconnected',  () => {
+    console.log('Database reconnected' + uri);
   });
 
   return {

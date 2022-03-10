@@ -5,7 +5,7 @@ import {
   findByCommonNameLanguageRegex, 
 } from './family.statics';
 
-const GCommentSchema = new Mongoose.Schema(
+const FCommentSchema = new Mongoose.Schema(
   {
     text: String,
     reference: String,
@@ -19,11 +19,10 @@ const FamilySchema = new Mongoose.Schema(
     //_id automatically added to IFamilyDocument by inheritance from Document
     //Family: { type: FamilySchema, required: true},
     name: { type: String, required: true },
-    authority: String,
-    family: String,
-    comment: GCommentSchema,
+    comments: [FCommentSchema],
     afrnames: { type: [String], default: undefined }, // default : undefined stops mongoose from making blank arrays
     engnames: { type: [String], default: undefined },
+    genuslist: { type: [String], default: undefined },
   },
   {
     timestamps: true, //Add timestamps, __V (version) will also be added automatically

@@ -19,10 +19,10 @@ export async function findByFamilyName(
 ): Promise<IFamilyDocument> {
   return this.find({ 'name': name }).select({
     'name': 1,
-    'authority': 1,
-    'family': 1,
     'afrnames': 1,
     'engnames': 1,
+    'genuslist': 1,
+    'comments': 1
   });
 }
 
