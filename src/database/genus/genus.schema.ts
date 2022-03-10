@@ -26,8 +26,7 @@ const GenusSchema = new Mongoose.Schema(
     engnames: { type: [String], default: undefined },
   },
   {
-    _id: false ,
-    timestamps: true, //Add timestamps, __V (version) will also ne added automatically
+    timestamps: true, //Add timestamps, __V (version) will also be added automatically
     toJSON: { virtuals: true }, //virtuals will be returned in toJSON
     toObject: { virtuals: true }, //virtuals will be included in toObject
     collation: { locale: 'en_US', strength: 1 }, //Ignore diacritics & case in matches

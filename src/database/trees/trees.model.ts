@@ -3,7 +3,7 @@ import TreeSchema from './trees.schema';
 import { ITreeDocument, ITreeModel } from './trees.types';
 
 export const TreeModel = Mongoose.model<ITreeDocument>(
-  'tree', //NB this means the MongoDB collection will be "trees"  (lower case plural of tree)
+  'treecol', //NB this means the MongoDB collection will be "treecols"  (lower case plural of tree)
  
   TreeSchema
 ) as ITreeModel;

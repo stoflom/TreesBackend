@@ -69,7 +69,7 @@ const TreeSchema = new Mongoose.Schema(
     group: { type: String, default: undefined },
   },
   {
-    timestamps: true, //Add timestamps, __V (version) will also ne added automatically
+    timestamps: true, //Add timestamps, __V (version) will also be added automatically
     toJSON: { virtuals: true }, //virtuals will be returned in toJSON
     toObject: { virtuals: true }, //virtuals will be included in toObject
     collation: { locale: 'en_US', strength: 1 }, //Ignore diacritics & case in matches
