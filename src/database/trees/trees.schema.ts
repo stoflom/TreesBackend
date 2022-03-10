@@ -1,5 +1,6 @@
 import * as Mongoose from 'mongoose';
 import { ITreeDocument, ITreeModel } from './trees.types';
+import{CommentSchema,CNamesSChema} from '../common/common.schema';
 
 import {
   findOneOrCreate,
@@ -11,7 +12,7 @@ import {
   findByGroup,
 } from './trees.statics';
 
-const GenusSchema = new Mongoose.Schema(
+const TreeGenusSchema = new Mongoose.Schema(
   {
     name: { type: String, required: true },
     id: { type: Mongoose.SchemaTypes.ObjectId, ref: 'IGenusDocument' },
@@ -27,14 +28,6 @@ const SpeciesSchema = new Mongoose.Schema(
   { _id: false }
 );
 
-const CommentSchema = new Mongoose.Schema(
-  {
-    text: String,
-    reference: String,
-  },
-  { _id: false }
-);
-
 const SynonymSchema = new Mongoose.Schema(
   {
     genus: String,
@@ -45,18 +38,11 @@ const SynonymSchema = new Mongoose.Schema(
   { _id: false }
 );
 
-const CNamesSChema = new Mongoose.Schema(
-  {
-    language: String,
-    names: { type: [String], default: undefined },
-  },
-  { _id: false }
-);
 
 const TreeSchema = new Mongoose.Schema(
   {
     //_id automatically added to ItreeDocument by inheritance from Document
-    genus: { type: GenusSchema, required: true},
+    genus: { type: TreeGenusSchema, required: true},
     species: { type: SpeciesSchema, required: true },
     subspecies: SpeciesSchema,
     variety: SpeciesSchema,

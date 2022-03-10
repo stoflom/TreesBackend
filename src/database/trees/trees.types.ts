@@ -1,8 +1,9 @@
 // see: https://codingsans.com/blog/mongoose-models-using-typescript-classes
 
 import { Document, Model, Types } from 'mongoose';
+import {IComment,ICNames} from '../common/common.types'
 
-export interface IGenus {
+export interface ITreeGenus {
   name: string;
   id?: string;
 }
@@ -12,11 +13,6 @@ export interface ISpecies {
   authority?: string;
 }
 
-export interface IComment {
-  text: string;
-  reference?: string;
-}
-
 export interface ISynonym {
   genus: string;
   species: ISpecies;
@@ -24,16 +20,11 @@ export interface ISynonym {
   variety?: ISpecies;
 }
 
-export interface ICNames {
-  language: string;
-  names: string[];
-}
-
 export interface ITree {
   // _id?: string             //canot declare optional here
   //since it is not-optional in Document by mongoose, so if declared here will be required
   //what is returned from MongoDB is always a TreeDocument with _id included.
-  genus: IGenus;
+  genus: ITreeGenus;
   species: ISpecies;
   subspecies?: ISpecies;
   variety?: ISpecies;

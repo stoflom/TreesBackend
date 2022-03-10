@@ -1,17 +1,11 @@
 import * as Mongoose from 'mongoose';
+import{CommentSchema,CNamesSChema} from '../common/common.schema';
 
 import {
   findByGenusName,
   findByCommonNameLanguageRegex, 
 } from './genus.statics';
 
-const GCommentSchema = new Mongoose.Schema(
-  {
-    text: String,
-    reference: String,
-  },
-  { _id: false }
-);
 
 
 const GenusSchema = new Mongoose.Schema(
@@ -21,9 +15,8 @@ const GenusSchema = new Mongoose.Schema(
     name: { type: String, required: true },
     authority: String,
     family: String,
-    comment: [GCommentSchema],
-    afrnames: { type: [String], default: undefined }, // default : undefined stops mongoose from making blank arrays
-    engnames: { type: [String], default: undefined },
+    comment: [CommentSchema],
+    cnames: { type: [CNamesSChema], default: undefined },
   },
   {
     timestamps: true, //Add timestamps, __V (version) will also be added automatically
