@@ -23,10 +23,10 @@ To get debug logging do:
 # ROUTES: (To pretty print pipe response through jq: " | jq '.' ")
 
 # find all "adenias"
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/genus/adenia   
+curl -H "application/x-www-form-urlencoded" localhost:5002/api/treegenus/adenia  | jq '.'
 
 # find all variants of "acacia karroo"
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/genus/acacia/karroo  
+curl -H "application/x-www-form-urlencoded" localhost:5002/api/treegs/acacia/karroo  | jq '.'
 
 # find details of a single tree by MongoDB _id:
 curl -H "application/x-www-form-urlencoded" localhost:5002/api/id/5fae3c24cd7252082772bdee 
@@ -53,3 +53,9 @@ curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*biet
 
 # find trees in group 8
 curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/group/8 | jq '.' | grep scientificName
+
+# find genus adenia in genuscols
+curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.'
+
+# find family acanthaceae in familycols
+curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/acanthaceae | jq '.'

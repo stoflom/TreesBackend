@@ -1,20 +1,13 @@
-import * as Mongoose from 'mongoose';
 import { Document, Model, Types } from 'mongoose';
+import {IComment,ICNames} from '../common/common.types'
 
-
-export interface IGComment {
-  text: string;
-  reference?: string;
-}
 
 export interface IFamily {
   name: string;
-  afrnames?: [string];
-  engnames?: [string];
+  cnames?: [ICNames];
   genuslist?: [string];
-  comments?: [IGComment];
+  comments?: [IComment];
 }
-
 
 //db queries return IFamilyDocument
 export interface IFamilyDocument extends IFamily, Document {

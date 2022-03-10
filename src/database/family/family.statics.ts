@@ -2,7 +2,6 @@
 import { IFamily, IFamilyDocument } from './family.types';
 
 export async function findOneOrCreate(
-  //  this: IFamilyModel, //Dummy for invoking findOne method
   Family: IFamily
 ): Promise<IFamilyDocument> {
   const record = await this.findOne(Family); //Find one returns the first match NB!
@@ -19,8 +18,7 @@ export async function findByFamilyName(
 ): Promise<IFamilyDocument> {
   return this.find({ 'name': name }).select({
     'name': 1,
-    'afrnames': 1,
-    'engnames': 1,
+    'cnames': 1,
     'genuslist': 1,
     'comments': 1
   });

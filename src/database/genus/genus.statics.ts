@@ -2,14 +2,13 @@
 import { IGenus, IGenusDocument } from './genus.types';
 
 export async function findOneOrCreate(
-  //  this: IGenusModel, //Dummy for invoking findOne method
-  Genus: IGenus
+  genus: IGenus
 ): Promise<IGenusDocument> {
-  const record = await this.findOne(Genus); //Find one returns the first match NB!
+  const record = await this.findOne(genus); //Find one returns the first match NB!
   if (record) {
     return record;
   } else {
-    return this.create(Genus);
+    return this.create(genus);
   }
 }
 

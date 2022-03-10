@@ -1,17 +1,11 @@
 import * as Mongoose from 'mongoose';
+import { CommentSchema, CNamesSChema } from '../common/common.schema';
 
 import {
   findByFamilyName,
-  findByCommonNameLanguageRegex, 
+  findByCommonNameLanguageRegex,
 } from './family.statics';
 
-const FCommentSchema = new Mongoose.Schema(
-  {
-    text: String,
-    reference: String,
-  },
-  { _id: false }
-);
 
 
 const FamilySchema = new Mongoose.Schema(
@@ -19,9 +13,8 @@ const FamilySchema = new Mongoose.Schema(
     //_id automatically added to IFamilyDocument by inheritance from Document
     //Family: { type: FamilySchema, required: true},
     name: { type: String, required: true },
-    comments: [FCommentSchema],
-    afrnames: { type: [String], default: undefined }, // default : undefined stops mongoose from making blank arrays
-    engnames: { type: [String], default: undefined },
+    comments: { type: [CommentSchema], default: undefined },
+    cnames: { type: [CNamesSChema], default: undefined },
     genuslist: { type: [String], default: undefined },
   },
   {

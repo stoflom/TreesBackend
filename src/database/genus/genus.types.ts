@@ -1,18 +1,15 @@
 // see: https://codingsans.com/blog/mongoose-models-using-typescript-classes
 
 import { Document, Model, Types } from 'mongoose';
+import {IComment,ICNames} from '../common/common.types'
 
-export interface IGComment {
-  text: string;
-  reference?: string;
-}
 
 export interface IGenus {
   name: string;
   family?: string;
-  cnames?: [string];
+  cnames?: ICNames[];
   authority?: string;
-  comments?: [IGComment];
+  comments?: [IComment];
 }
 
 

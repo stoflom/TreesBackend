@@ -1,9 +1,9 @@
 import * as Mongoose from 'mongoose';
-import{CommentSchema,CNamesSChema} from '../common/common.schema';
+import { CommentSchema, CNamesSChema } from '../common/common.schema';
 
 import {
   findByGenusName,
-  findByCommonNameLanguageRegex, 
+  findByCommonNameLanguageRegex,
 } from './genus.statics';
 
 
@@ -15,7 +15,7 @@ const GenusSchema = new Mongoose.Schema(
     name: { type: String, required: true },
     authority: String,
     family: String,
-    comment: [CommentSchema],
+    comments: { type: [CommentSchema], default: undefined },
     cnames: { type: [CNamesSChema], default: undefined },
   },
   {
