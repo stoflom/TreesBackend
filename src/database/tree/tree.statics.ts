@@ -27,6 +27,8 @@ export async function findByGenusName(
   });
 }
 
+
+//Lookup genus from genuscols to get family
 export async function findByGenusSpeciesNames(
   genusname: string,
   speciesname: string
