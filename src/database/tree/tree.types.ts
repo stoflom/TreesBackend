@@ -42,7 +42,6 @@ export interface ITree {
 }
 
 
-
 //db queries return ITreeDocument
 export interface ITreeDocument extends ITree, Document {
   //Virtuals are accessible on TreeDocument, similar to _id property which are built in by mongoose

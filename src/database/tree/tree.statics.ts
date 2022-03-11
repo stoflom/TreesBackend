@@ -1,5 +1,5 @@
 //import { getUnpackedSettings } from 'http2';
-import { ITree, ITreeDocument, ITreeModel } from './tree.types';
+import { ITree, ITreeDocument } from './tree.types';
 
 export async function findOneOrCreate(
   //  this: ITreeModel, //Dummy for invoking findOne method
@@ -27,24 +27,60 @@ export async function findByGenusName(
   });
 }
 
-//Returns array
 export async function findByGenusSpeciesNames(
   genusname: string,
   speciesname: string
 ): Promise<ITreeDocument[]> {
-  return this.find({
-    'genus.name': genusname,
-    'species.name': speciesname,
-  }).select({
-    'genus.name': 1,
-    'genus.fref':1,
-    'species.name': 1,
-    'subspecies.name': 1,
-    'variety.name': 1,
-    'firstname': 1,
-    'group': 1
-  }).populate('genus.fref');
+  return this.aggregate([
+      { $match: {
+          'genus.name': genusname,
+          'species.name': speciesname,
+        }
+      },
+      { $lookup:{
+          from: 'genuscols',
+          localField: 'genus.fref',
+          foreignField: '_id',
+          as: 'agenus'
+        }
+      },
+      { $addFields: {
+        'family':  {'$arrayElemAt':[ '$agenus.family', 0]  } 
+        }
+      },
+      { $project: {
+        'genus.name': 1,
+        'species.name': 1,
+        'subspecies.name': 1,
+        'variety.name': 1,
+        'firstname': 1,
+        'group': 1,
+        'family': 1
+        }
+      }
+    ]);
 }
+
+// Below is supposed to work but returns GenusSchema not registered??????
+// //Returns array
+// export async function findByGenusSpeciesNames(
+//   genusname: string,
+//   speciesname: string
+// ): Promise<ITreeDocument[]> {
+//   return this.find({
+//     'genus.name': genusname,
+//     'species.name': speciesname,
+//   }).select({
+//     'genus.name': 1,
+//  //   'genus.fref.name':1,
+// //    'genus':1,
+//     'species.name': 1,
+//     'subspecies.name': 1,
+//     'variety.name': 1,
+//     'firstname': 1,
+//     'group': 1
+//   }).populate('genus.fref');
+// }
 
 //Returns array
 export async function findByCommonNameRegex(
@@ -163,19 +199,19 @@ export async function findByGroup(
   group: string
 ): Promise<ITreeDocument[]> {
   return this.find({ group: group })
-  // .populate(
-  //   {
-  //     path: 'genus',
-  //     select: 'genus.family'
-  //   }
-  //   )
+    // .populate(
+    //   {
+    //     path: 'genus',
+    //     select: 'genus.family'
+    //   }
+    //   )
     .select({
-    'genus.name': 1,
-    'species.name': 1,
-    'subspecies.name': 1,
-    'variety.name': 1,
-    'firstname': 1,
-    'group': 1,
-    'cnames': 1
-  });
+      'genus.name': 1,
+      'species.name': 1,
+      'subspecies.name': 1,
+      'variety.name': 1,
+      'firstname': 1,
+      'group': 1,
+      'cnames': 1
+    });
 }

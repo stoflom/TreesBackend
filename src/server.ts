@@ -18,7 +18,13 @@ app.use(urlencoded({ extended: false }));
 //Register the router
 app.use(theRouter);
 
+//TreeModel.init();
+//GenusModel.init();
+
 connect();
+
+//Register the router
+app.use(theRouter);
 
 app.listen(port, () => {
   console.log(`\nServer started on http://localhost:${port}\n`);

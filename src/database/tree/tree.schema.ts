@@ -15,7 +15,7 @@ import {
 const TreeGenusSchema = new Mongoose.Schema(
   {
     name: { type: String, required: true },
-    fref: { type: Mongoose.SchemaTypes.ObjectId, ref: 'IGenusDocument' }, //Refrence to genuscols entry
+    fref: { type: Mongoose.SchemaTypes.ObjectId, ref: 'GenusModel' }, //Refrence to genuscols entry
   },
   { _id: false }
 );

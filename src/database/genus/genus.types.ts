@@ -13,14 +13,6 @@ export interface IGenus {
 }
 
 
-
-
-
-
-
-
-
-
 //db queries return IGenusDocument
 export interface IGenusDocument extends IGenus, Document {
   //Virtuals are accessible on GenusDocument, similar to _id property which are built in by mongoose

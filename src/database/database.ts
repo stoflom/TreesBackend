@@ -2,8 +2,10 @@ import * as Mongoose from 'mongoose';
 import { TreeModel } from './tree/tree.model';
 import { GenusModel } from './genus/genus.model';
 
-
 let database: Mongoose.Connection;
+
+export const aTreeModel = TreeModel;
+export const aGenusModel = GenusModel;
 
 export const connect = () => {
   // add your own uri below
@@ -23,32 +25,30 @@ export const connect = () => {
     useCreateIndex: true
   });
 
-  TreeModel.init;
-  GenusModel.init;
-
   database = Mongoose.connection;
 
   database.once('open', async () => {
     console.log('Connected to database ' + uri);
   });
 
-  database.on('error',  () => {
+  database.on('error', () => {
     console.log('Database connection error' + uri);
   });
 
-  database.on('error',  err => {
+  database.on('error', err => {
     console.log('Database error' + err);
   });
 
-  database.on('disconnected',  () => {
+  database.on('disconnected', () => {
     console.log('Database disconnected' + uri);
   });
 
-  database.on('reconnected',  () => {
+  database.on('reconnected', () => {
     console.log('Database reconnected' + uri);
   });
-  
-  return ;
+
+
+  return;
 };
 
 export const disconnect = () => {
