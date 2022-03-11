@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { TreeModel } from '../database/trees/trees.model';
-import { ITreeDocument } from '../database/trees/trees.types';
+import { TreeModel } from '../database/tree/tree.model';
+import { ITreeDocument } from '../database/tree/tree.types';
 import { GenusModel } from '../database/genus/genus.model';
 import { IGenusDocument } from '../database/genus/genus.types';
 import { FamilyModel } from '../database/family/family.model';

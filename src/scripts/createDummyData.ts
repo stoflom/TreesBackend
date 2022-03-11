@@ -1,4 +1,4 @@
-import { TreeModel } from '../database/trees/trees.model';
+import { TreeModel } from '../database/tree/tree.model';
 import { connect, disconnect } from '../database/database';
 import { Types } from 'mongoose';
 

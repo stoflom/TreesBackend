@@ -1,14 +1,16 @@
 import { connect, disconnect } from '../database/database';
 import { Types } from 'mongoose';
-import { TreeModel } from '../database/trees/trees.model';
+import { TreeModel } from '../database/tree/tree.model';
 
 //Dumps common names data for  SANBI
 
 (async () => {
   const db = connect();
 
+
   //get all trees
-  const alltrees = await db.TreeModel.find({});
+//  const alltrees = await db.TreeModel.find({});
+  const alltrees = await TreeModel.find({});
   for (let tree of alltrees) {
     //Create '=' delimited table of names (Note  some authorities contain ',')
     for (let cname of tree.cnames) {
