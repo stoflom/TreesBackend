@@ -34,36 +34,43 @@ export async function findByGenusSpeciesNames(
   speciesname: string
 ): Promise<ITreeDocument[]> {
   return this.aggregate([
-      { $match: {
-          'genus.name': genusname,
-          'species.name': speciesname,
-        }
-      },
-      { $lookup:{
-          from: 'genuscols',
-          localField: 'genus.fref',
-          foreignField: '_id',
-          as: 'agenus'
-        }
-      },
-      { $addFields: {
-        'family':  {'$arrayElemAt':[ '$agenus.family', 0]  } 
-        }
-      },
-      { $project: {
-        'genus.name': 1,
-        'species.name': 1,
-        'subspecies.name': 1,
-        'variety.name': 1,
-        'firstname': 1,
-        'group': 1,
-        'family': 1
-        }
+    {
+      $match: {
+        'genus.name': genusname,
+        'species.name': speciesname,
       }
-    ]);
+    },
+    {
+      $lookup: {
+        from: 'genuscols',
+        localField: 'genus.fref',
+        foreignField: '_id',
+        as: 'genus'               //overwrite genus with full def from genuscols.
+      }
+    },
+    {
+      $addFields: {
+        genus: { '$arrayElemAt': ['$genus', 0] },     //overwrite genus again to first elem. in array
+        family: { '$arrayElemAt': ['$genus.family', 0] },
+        identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
+          $trim: {
+            input: {
+              $concat: [ {'$arrayElemAt': ['$genus.name', 0]} , " ", "$species.name", " ",
+                { $ifNull: ["$subspecies.name", "$variety.name", " "] }
+              ]
+            }
+          }
+        },
+        id: "$_id"  //add id virtual manually since mongoos won't for aggregates.
+      }
+    },
+    // { $project: {
+    //   }
+    // }
+  ]);
 }
 
-// Below is supposed to work but returns GenusSchema not registered??????
+// Below is supposed to work but returns error  GenusSchema not registered??????
 // //Returns array
 // export async function findByGenusSpeciesNames(
 //   genusname: string,
