@@ -1,5 +1,7 @@
 import * as Mongoose from 'mongoose';
-import { TreeModel } from './trees/trees.model';
+import { TreeModel } from './tree/tree.model';
+import { GenusModel } from './genus/genus.model';
+
 
 let database: Mongoose.Connection;
 
@@ -20,6 +22,9 @@ export const connect = () => {
     useUnifiedTopology: true,
     useCreateIndex: true
   });
+
+  TreeModel.init;
+  GenusModel.init;
 
   database = Mongoose.connection;
 
@@ -42,10 +47,8 @@ export const connect = () => {
   database.on('reconnected',  () => {
     console.log('Database reconnected' + uri);
   });
-
-  return {
-    TreeModel
-  };
+  
+  return ;
 };
 
 export const disconnect = () => {
