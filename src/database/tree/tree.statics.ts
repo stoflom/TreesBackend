@@ -32,7 +32,8 @@ export async function findByGenusName(
 export async function findByGenusSpeciesNames(
   genusname: string,
   speciesname: string
-): Promise<ITreeDocument[]> {
+): Promise<ITreeDocument[]> {  //NOTE returns more than defined in ITreeDocument, must fix there
+  // probably by extending ITreeDocument to include IGenusDocument etc.
   return this.aggregate([
     {
       $match: {
@@ -55,8 +56,8 @@ export async function findByGenusSpeciesNames(
         identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
           $trim: {
             input: {
-              $concat: [ {'$arrayElemAt': ['$genus.name', 0]} , " ", "$species.name", " ",
-                { $ifNull: ["$subspecies.name", "$variety.name", " "] }
+              $concat: [{ '$arrayElemAt': ['$genus.name', 0] }, " ", "$species.name", " ",
+              { $ifNull: ["$subspecies.name", "$variety.name", " "] }
               ]
             }
           }
@@ -133,7 +134,7 @@ export async function findByCommonNameRegex(
 export async function findByCommonNameLanguageRegex(
   language: string,
   regex: string
-): Promise<ITreeDocument[]> {
+): Promise<ITreeDocument[]> {  //NOTE return agrees with ITreeDocument (I think)
   return this.aggregate(
     [{    //Only interested in trees where this language exists
       $match: {
