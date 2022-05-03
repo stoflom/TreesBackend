@@ -15,7 +15,7 @@ import {
 const TreeGenusSchema = new Mongoose.Schema(
   {
     name: { type: String, required: true },
-    fref: { type: Mongoose.SchemaTypes.ObjectId, ref: 'GenusModel' }, //Refrence to genuscols entry
+    fref: { type: Mongoose.SchemaTypes.ObjectId, ref: 'GenusModel' }, //Reference to genuscols entry
   },
   { _id: false }
 );
@@ -63,7 +63,7 @@ const TreeSchema = new Mongoose.Schema(
 );
 
 //NBNB
-//NOTE1: fields on which virtuals are based are only available if included in the project! field of the query
+//NOTE1: fields on which virtuals are based are only available if included in the Mongo project field of the query
 //    SO CHECK IF FIELDS ARE DEFINED
 //NOTE2: virtuals are not automatically included in query responses, pass {virtuals: true} to toJSON
 //
