@@ -68,6 +68,9 @@ const TreeSchema = new Mongoose.Schema(
 //NOTE2: virtuals are not automatically included in query responses, pass {virtuals: true} to toJSON
 //
 //Virtual fields (must be made visible in trees.types interface on ITreeDocument)
+
+
+
 //TreeSchema.virtual('binomial').get(function (this: ITreeDocument): string {
 //returns e.g. "Acacia erioloba"
 //  return this.genus.name + ' ' + this.species.name;
