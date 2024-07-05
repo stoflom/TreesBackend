@@ -12,7 +12,7 @@ export const connect = () => {
   const uri =
     //  'mongodb+srv://<treename>:<password>@cluster0-v6q0g.mongodb.net/test?retryWrites=true&w=majority';
     // 'mongodb://localhost:27017/TreesTest'; //SET CORRECT DB NAME HERE
-    'mongodb://localhost:27017/SATrees'; //SET CORRECT DB NAME HERE
+    'mongodb://127.0.0.1:27017/SATrees'; //node does not resolve localhost > v17
 
   if (database) {
     //Avoiding connecting again
