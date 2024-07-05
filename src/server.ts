@@ -27,5 +27,5 @@ connect();
 app.use(theRouter);
 
 app.listen(port, () => {
-  console.log(`\nServer started on http://localhost:${port}\n`);
+  console.log(`\nServer started on http://127.0.0.1:${port}\n`);
 });
