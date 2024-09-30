@@ -1,5 +1,5 @@
 import * as Mongoose from 'mongoose';
-import { CommentSchema, CNamesSChema } from '../common/common.schema';
+import { CommentSchema, CNamesSchema } from '../common/common.schema';
 
 import {
   findByFamilyName,
@@ -14,7 +14,7 @@ const FamilySchema = new Mongoose.Schema(
     //Family: { type: FamilySchema, required: true},
     name: { type: String, required: true },
     comments: { type: [CommentSchema], default: undefined },
-    cnames: { type: [CNamesSChema], default: undefined },
+    cnames: { type: [CNamesSchema], default: undefined },
     genuslist: { type: [String], default: undefined },
   },
   {
