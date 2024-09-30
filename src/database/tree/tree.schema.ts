@@ -1,6 +1,6 @@
 import * as Mongoose from 'mongoose';
 import { ITreeDocument, ITreeModel } from './tree.types';
-import{CommentSchema,CNamesSChema} from '../common/common.schema';
+import{CommentSchema,CNamesSchema,CHyperlinksSchema} from '../common/common.schema';
 
 import {
   findOneOrCreate,
@@ -50,9 +50,10 @@ const TreeSchema = new Mongoose.Schema(
     FSAnumber: String,
     Znumber: String,
     synonyms: { type: [SynonymSchema], default: undefined }, // default : undefined stops mongoose from making blank arrays
-    cnames: { type: [CNamesSChema], default: undefined },
+    cnames: { type: [CNamesSchema], default: undefined },
     vegtypes: { type: [String], default: undefined },
     group: { type: String, default: undefined },
+    hyperlinks : { type: [CHyperlinksSchema], default: undefined }
   },
   {
     timestamps: true, //Add timestamps, __V (version) will also be added automatically

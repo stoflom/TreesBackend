@@ -9,3 +9,9 @@ export interface ICNames {
     language: string;
     names: string[];
 }
+
+export interface ICHyperlink {
+    language: string;
+    org: string;
+    link: string;
+}

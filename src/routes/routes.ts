@@ -80,7 +80,7 @@ theRouter.get(
 
 //Test: curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/id/5fae3c24cd7252082772bdee | jq '.' (pretty print pipe)
 theRouter.get('/api/id/:id', [], async (req: Request, res: Response) => {
-  //findByID is provided by mongoose, as is find
+  //NOTE: findByID is provided by mongoose, as is find and findOne
   const tree: ITreeDocument = await TreeModel.findById(req.params.id);
   return res.status(200).json(tree);
 });

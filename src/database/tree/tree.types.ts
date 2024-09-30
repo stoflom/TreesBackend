@@ -1,7 +1,7 @@
 // see: https://codingsans.com/blog/mongoose-models-using-typescript-classes
 
 import { Document, Model, Types } from 'mongoose';
-import {IComment,ICNames} from '../common/common.types'
+import {IComment,ICNames,ICHyperlink} from '../common/common.types'
 
 export interface ITreeGenus {
   name: string;
@@ -35,6 +35,7 @@ export interface ITree {
   cnames?: ICNames[];
   vegtypes?: string[];
   group?: string[];
+  hyperlinks?: ICHyperlink[];
   //The next 3 seems to be NOT declared in Document,
   createdAt?: Date;
   updatedAt?: Date;
