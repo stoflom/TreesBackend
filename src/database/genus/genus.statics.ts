@@ -27,7 +27,7 @@ export async function findByGenusName(
 
 
 
-//Note: aggregates return random jason and mongoos will not add
+//Note: aggregates return random jason and mongoose will not add
 // virtual variables by itself, they must be added manually.
 export async function findByCommonNameLanguageRegex(
   language: string,

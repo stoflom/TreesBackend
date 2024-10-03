@@ -1,5 +1,6 @@
 //import { getUnpackedSettings } from 'http2';
-import { ITree, ITreeDocument } from './tree.types';
+import { ITree, ITreeDocument, ITreeModel } from './tree.types';
+
 
 export async function findOneOrCreate(
   //  this: ITreeModel, //Dummy for invoking findOne method
@@ -29,6 +30,7 @@ export async function findByGenusName(
 
 
 //Lookup genus from genuscols to get family
+//NOTE see commented function below which uses .populate
 export async function findByGenusSpeciesNames(
   genusname: string,
   speciesname: string
@@ -71,8 +73,8 @@ export async function findByGenusSpeciesNames(
   ]);
 }
 
-// Below is supposed to work but returns error  GenusSchema not registered??????
-// //Returns array
+// Below is supposed to work but returns error:  GenusSchema not registered//
+//Returns array
 // export async function findByGenusSpeciesNames(
 //   genusname: string,
 //   speciesname: string
@@ -97,37 +99,20 @@ export async function findByCommonNameRegex(
   regex: string
 ): Promise<ITreeDocument[]> {
   return this.find({ 'cnames.names': { $regex: regex, $options: 'i' } }).select(
-    {
+    {//Only returns _id, fields for virtuals
       'genus.name': 1,
+      'genus.authority': 1,
       'species.name': 1,
+      'species.authority': 1,
       'subspecies.name': 1,
+      'subspecies.authority': 1,
       'variety.name': 1,
-      'group': 1,
-      'firstname': 1,
-      'cnames': 1
+      'variety.authority': 1,
+      // 'group': 1,
+      'cnames': 1   //Only language searched
     }
   );
 }
-
-// //Returns array, actually finds regex in any language
-// export async function findByCommonNameLanguageRegex(
-//  // this: ITreeModel,
-//   language: string,
-//   regex: string
-// ): Promise<ITreeDocument[]> {
-//   return this.find({
-//     'cnames.language': language,
-//     'cnames.names':{$elemMatch: { $regex: regex, $options: 'i' } },
-//   }).select({
-//     'genus.name': 1,
-//     'species.name': 1,
-//     'subspecies.name': 1,
-//     'variety.name': 1,
-//     'firstname': 1,
-//     'group': 1,
-//     'cnames': 1 
-//   });
-// }
 
 //Note: aggregates return random jason and mongoos will not add
 // virtual variables by itself, they must be added manually.
@@ -144,6 +129,8 @@ export async function findByCommonNameLanguageRegex(
       $project: {   //Only interested in these language entries
         genus: 1,
         species: 1,
+        subspecies: 1,
+        variety: 1,
         cnames: {
           $arrayElemAt: [
             '$cnames',
@@ -158,7 +145,7 @@ export async function findByCommonNameLanguageRegex(
       }
     },
     {
-      $match: {     //Only interested in trees where the cname mathes the regex
+      $match: {     //Only interested in trees where the cname matches the regex
         'cnames.names': { $regex: regex, $options: 'i' }
       }
     },
@@ -170,8 +157,9 @@ export async function findByCommonNameLanguageRegex(
         identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
           $trim: {
             input: {
-              $concat: ["$genus.name", " ", "$species.name", " ",
-                { $ifNull: ["$subspecies.name", "$variety.name", " "] }
+              $concat: ["$genus.name", " ", "$species.name", 
+                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"]}, "" ] },
+                { $cond: ["$variety", { $concat: [" var. ", "$variety.name"]}, "" ] } 
               ]
             }
           }

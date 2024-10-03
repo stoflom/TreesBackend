@@ -43,7 +43,7 @@ export interface ITree {
 }
 
 
-//db queries return ITreeDocument
+//db detail queries return ITreeDocument which is ITree extended by virtual fields
 export interface ITreeDocument extends ITree, Document {
   //Virtuals are accessible on TreeDocument, similar to _id property which are built in by mongoose
   //  binomial: (this: ITreeDocument) => string;
@@ -51,6 +51,7 @@ export interface ITreeDocument extends ITree, Document {
   scientificName: (this: ITreeDocument) => string;
   firstname: (this: ITreeDocument) => string;
 }
+
 
 //db create/update/find are called on TreeModel and return TreeDocument
 export interface ITreeModel extends Model<ITreeDocument> {
@@ -75,6 +76,13 @@ export interface ITreeModel extends Model<ITreeDocument> {
   ) => Promise<ITreeDocument[]>;
 
   findByCommonNameLanguageRegex: (
+    //arrow function
+    this: ITreeModel,
+    language: string,
+    regex: string
+  ) => Promise<ITreeDocument[]>;
+
+  findDetailByCommonNameLanguageRegex: (
     //arrow function
     this: ITreeModel,
     language: string,

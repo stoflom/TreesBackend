@@ -77,24 +77,19 @@ const TreeSchema = new Mongoose.Schema(
 //  return this.genus.name + ' ' + this.species.name;
 //});
 
+
 TreeSchema.virtual('identity').get(function (this: ITreeDocument): string {
   //returns e.g. "Acacia erioloba subsp. xxx var. yyy"
   //let identity: string = this.genus.name + ' ' + this.species.name;
   let identity: string = this.genus.name + ' ' + this.species.name;
-  if (this.species.authority){
-    identity += ' ' + this.species.authority;
-  }
+  
   if (this.subspecies) {
     identity += ' subsp. ' + this.subspecies.name;
-    if (this.subspecies.authority){
-      identity += ' ' + this.subspecies.authority;
-    }
+    
   }
   if (this.variety) {
     identity += ' var. ' + this.variety.name;
-    if (this.variety.authority){
-      identity += ' ' + this.variety.authority;
-    }
+    
   }
   return identity;
 });
