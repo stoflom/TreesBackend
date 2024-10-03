@@ -38,13 +38,4 @@ export interface IGenusModel extends Model<IGenusDocument> {
     genusname: string
   ) => Promise<IGenusDocument[]>;
 
-
-  findByCommonNameLanguageRegex: (
-    //arrow function
-    this: IGenusModel,
-    language: string,
-    regex: string
-  ) => Promise<IGenusDocument[]>;
-
-
 }

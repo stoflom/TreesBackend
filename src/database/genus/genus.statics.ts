@@ -22,50 +22,9 @@ export async function findByGenusName(
     'family': 1,
     'cnames': 1,
     'comments': 1,
+    'hyperlinks': 1
   });
 }
 
 
-
-//Note: aggregates return random jason and mongoose will not add
-// virtual variables by itself, they must be added manually.
-export async function findByCommonNameLanguageRegex(
-  language: string,
-  regex: string
-): Promise<IGenusDocument[]> {
-  return this.aggregate(
-    [{    //Only interested in Genuss where this language exists
-      $match: {
-        'cnames.language': language
-      }
-    }, {
-      $project: {   //Only interested in these language entries
-        genus: 1,
-        species: 1,
-        cnames: {
-          $arrayElemAt: [
-            '$cnames',
-            {
-              $indexOfArray: [
-                '$cnames.language',
-                language
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      $match: {     //Only interested in Genus where the cname mathes the regex
-        'cnames.names': { $regex: regex, $options: 'i' }
-      }
-    }
-    ]
-    // , function (err: Error) {
-    //   if (err)
-    //     console.warn('***ERROR:' + err.message);  //Must stop crash from happening?
-    //     return("{[]}");
-    // }
-  );
-}
 

@@ -29,7 +29,7 @@ export async function findByGenusName(
 }
 
 
-//Lookup genus from genuscols to get family
+//ALSO Lookup genus from genuscols to get family
 //NOTE see commented function below which uses .populate
 export async function findByGenusSpeciesNames(
   genusname: string,
@@ -73,8 +73,8 @@ export async function findByGenusSpeciesNames(
   ]);
 }
 
-// Below is supposed to work but returns error:  GenusSchema not registered//
-//Returns array
+// // Below is supposed to work but returns error:  GenusSchema not registered//
+// //Returns array
 // export async function findByGenusSpeciesNames(
 //   genusname: string,
 //   speciesname: string
