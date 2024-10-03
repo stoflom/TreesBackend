@@ -1,6 +1,6 @@
 // see: https://codingsans.com/blog/mongoose-models-using-typescript-classes
 
-import { Document, Model, Types } from 'mongoose';
+import { Document, Model } from 'mongoose';
 import {IComment,ICNames,ICHyperlink} from '../common/common.types'
 
 export interface ITreeGenus {
