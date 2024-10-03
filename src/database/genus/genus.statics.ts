@@ -56,30 +56,8 @@ export async function findByCommonNameLanguageRegex(
       }
     },
     {
-      $match: {     //Only interested in Genuss where the cname mathes the regex
+      $match: {     //Only interested in Genus where the cname mathes the regex
         'cnames.names': { $regex: regex, $options: 'i' }
-      }
-    },
-    {
-      $addFields: {
-        firstname: {      //Need a firstname for display
-          $arrayElemAt: ['$cnames.names', 0]  //will not always be the matching name 
-        },
-        identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
-          $trim: {
-            input: {
-              $concat: ["$genus.name", " ", "$species.name", " ",
-                { $ifNull: ["$subspecies.name", "$variety.name", " "] }
-              ]
-            }
-          }
-        },
-        id: "$_id"  //add id virtual manually sonce mongoos won't for aggregates.
-      }
-    },
-    {
-      $project: {
-        cnames: 0
       }
     }
     ]
