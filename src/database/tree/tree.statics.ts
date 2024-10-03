@@ -152,14 +152,16 @@ export async function findByCommonNameLanguageRegex(
     {
       $addFields: {
         firstname: {      //Need a firstname for display
-          $arrayElemAt: ['$cnames.names', 0]  //will not always be the matching name 
+          $arrayElemAt: [
+            '$cnames.names', 0
+          ]
         },
         identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
           $trim: {
             input: {
-              $concat: ["$genus.name", " ", "$species.name", 
-                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"]}, "" ] },
-                { $cond: ["$variety", { $concat: [" var. ", "$variety.name"]}, "" ] } 
+              $concat: ["$genus.name", " ", "$species.name",
+                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"] }, ""] },
+                { $cond: ["$variety", { $concat: [" var. ", "$variety.name"] }, ""] }
               ]
             }
           }
