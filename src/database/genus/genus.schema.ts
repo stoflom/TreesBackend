@@ -1,5 +1,5 @@
 import * as Mongoose from 'mongoose';
-import { CommentSchema, CNamesSchema } from '../common/common.schema';
+import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common.schema';
 
 import {
   findByGenusName,
@@ -17,6 +17,7 @@ const GenusSchema = new Mongoose.Schema(
     family: String,
     comments: { type: [CommentSchema], default: undefined },
     cnames: { type: [CNamesSchema], default: undefined },
+    hyperlinks : { type: [CHyperlinksSchema], default: undefined }
   },
   {
     timestamps: true, //Add timestamps, __V (version) will also be added automatically
