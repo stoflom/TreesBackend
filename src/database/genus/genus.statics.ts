@@ -15,8 +15,8 @@ export async function findOneOrCreate(
 //Returns array
 export async function findByGenusName(
   name: string
-): Promise<IGenusDocument> {
-  return this.find({ 'name': name }).select({
+): Promise <IGenusDocument> {
+  return this.findOne({ 'name': name }).select({   //If you use "find" you always get an array
     'name': 1,
     'authority': 1,
     'family': 1,

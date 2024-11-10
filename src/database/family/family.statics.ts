@@ -16,7 +16,7 @@ export async function findOneOrCreate(
 export async function findByFamilyName(
   name: string
 ): Promise<IFamilyDocument> {
-  return this.find({ 'name': name }).select({
+  return this.findOne({ 'name': name }).select({
     'name': 1,
     'cnames': 1,
     'genuslist': 1,
