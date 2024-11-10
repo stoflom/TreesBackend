@@ -36,6 +36,6 @@ export interface IGenusModel extends Model<IGenusDocument> {
     //arrow function
     this: IGenusModel,
     genusname: string
-  ) => Promise<IGenusDocument[]>;
+  ) => Promise<IGenusDocument>;
 
 }

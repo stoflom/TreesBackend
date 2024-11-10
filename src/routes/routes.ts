@@ -122,7 +122,7 @@ theRouter.get(
 
 //Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.' (pretty print pipe)
 theRouter.get('/api/genus/:name', [], async (req: Request, res: Response) => {
-  const genus: IGenusDocument[] = await GenusModel.findByGenusName(
+  const genus: IGenusDocument = await GenusModel.findByGenusName(
     req.params.name
   );
   return res.status(200).json(genus);
@@ -131,10 +131,10 @@ theRouter.get('/api/genus/:name', [], async (req: Request, res: Response) => {
 
 //Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/Anacardiaceae | jq '.' (pretty print pipe)
 theRouter.get('/api/family/:name', [], async (req: Request, res: Response) => {
-  const genus: IFamilyDocument[] = await FamilyModel.findByFamilyName(
+  const family: IFamilyDocument = await FamilyModel.findByFamilyName(
     req.params.name
   );
-  return res.status(200).json(genus);
+  return res.status(200).json(family);
 });
 
 /*

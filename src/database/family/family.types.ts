@@ -31,7 +31,7 @@ export interface IFamilyModel extends Model<IFamilyDocument> {
     //arrow function
     this: IFamilyModel,
     Familyname: string
-  ) => Promise<IFamilyDocument[]>;
+  ) => Promise<IFamilyDocument>;
 
 
   findByCommonNameLanguageRegex: (
@@ -39,7 +39,7 @@ export interface IFamilyModel extends Model<IFamilyDocument> {
     this: IFamilyModel,
     language: string,
     regex: string
-  ) => Promise<IFamilyDocument[]>;
+  ) => Promise<IFamilyDocument>;
 
 
 }
