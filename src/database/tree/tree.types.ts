@@ -28,7 +28,7 @@ export interface ITree {
   species: ISpecies;
   subspecies?: ISpecies;
   variety?: ISpecies;
-  comment?: IComment;
+  comments?: IComment[];
   FSAnumber?: string;
   Znumber?: string;
   synonyms?: ISynonym[];

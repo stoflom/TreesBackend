@@ -46,7 +46,7 @@ const TreeSchema = new Mongoose.Schema(
     species: { type: SpeciesSchema, required: true },
     subspecies: SpeciesSchema,
     variety: SpeciesSchema,
-    comment: CommentSchema,
+    comments: { type: [CommentSchema], default: undefined },
     FSAnumber: String,
     Znumber: String,
     synonyms: { type: [SynonymSchema], default: undefined }, // default : undefined stops mongoose from making blank arrays
