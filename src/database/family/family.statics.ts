@@ -21,7 +21,7 @@ export async function findByFamilyName(
     'cnames': 1,
     'genuslist': 1,
     'comments': 1
-  });
+  }).sort('name');
 }
 
 

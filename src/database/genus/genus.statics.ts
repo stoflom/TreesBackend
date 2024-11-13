@@ -23,7 +23,7 @@ export async function findByGenusName(
     'cnames': 1,
     'comments': 1,
     'hyperlinks': 1
-  });
+  }).sort('name');
 }
 
 

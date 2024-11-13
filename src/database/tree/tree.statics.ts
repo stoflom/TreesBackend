@@ -25,7 +25,7 @@ export async function findByGenusName(
     'variety.name': 1,
     'firstname': 1,
     'group': 1
-  });
+  }).sort('genus.name species.name subspecies.name variety.name');
 }
 
 
@@ -70,7 +70,7 @@ export async function findByGenusSpeciesNames(
     // { $project: {
     //   }
     // }
-  ]);
+  ]).sort('Identity');
 }
 
 // // Below is supposed to work but returns error:  GenusSchema not registered//
@@ -111,7 +111,7 @@ export async function findByCommonNameRegex(
       // 'group': 1,
       'cnames': 1   //Only language searched
     }
-  );
+  ).sort('genus.name species.name subspecies.name variety.name');
 }
 
 //Note: aggregates return random jason and mongoos will not add
@@ -175,7 +175,7 @@ export async function findByCommonNameLanguageRegex(
       }
     }
     ]
-  );
+  ).sort('Identity');
 }
 
 //Returns array
@@ -191,7 +191,7 @@ export async function findBySpeciesNameRegex(
       'firstname': 1,
       'group': 1
     }
-  );
+  ).sort('genus.name species.name subspecies.name variety.name');
 }
 
 //Returns array
@@ -213,5 +213,5 @@ export async function findByGroup(
       'firstname': 1,
       'group': 1,
       'cnames': 1
-    });
+    }).sort('genus.name species.name subspecies.name variety.name');
 }
