@@ -20,9 +20,9 @@ export const connect = () => {
   }
 
   Mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
+  //  useNewUrlParser: true,
+  //  useUnifiedTopology: true,
+  //  useCreateIndex: true
   });
 
   database = Mongoose.connection;
