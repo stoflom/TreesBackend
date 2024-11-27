@@ -1,4 +1,4 @@
-//Common schema types used by other schemas
+//Common subschema types used by other schemas
 
 import * as Mongoose from 'mongoose';
 
@@ -9,7 +9,7 @@ export const CommentSchema = new Mongoose.Schema(
         text: String,
         reference: String,
     },
-    { _id: false }
+    { _id: false }   //These subschemas do not have ID's.
 );
 
 //Common names
