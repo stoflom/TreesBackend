@@ -22,7 +22,7 @@ export async function findByGenusName(
     {
       $match: { 'genus.name': genusname }
     }, {
-      $project: {  //Must firts get all data needed by virtuals
+      $project: {  //Must first get all data needed by virtuals
         genus: 1,
         species: 1,
         subspecies: 1,
@@ -268,7 +268,7 @@ export async function findByGroup(
     {
       $match: { 'group': group }
     }, {
-      $project: {  //Must firts get all data needed by virtuals
+      $project: {  //Must first get all data needed by virtuals
         genus: 1,
         species: 1,
         subspecies: 1,
