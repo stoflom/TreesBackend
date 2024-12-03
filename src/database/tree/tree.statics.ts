@@ -18,14 +18,55 @@ export async function findOneOrCreate(
 export async function findByGenusName(
   genusname: string
 ): Promise<ITreeDocument[]> {
-  return this.find({ 'genus.name': genusname }).select({
-    'genus.name': 1,
-    'species.name': 1,
-    'subspecies.name': 1,
-    'variety.name': 1,
-    'firstname': 1,
-    'group': 1
-  }).sort('genus.name species.name subspecies.name variety.name');
+  return this.aggregate([
+    {
+      $match: { 'genus.name': genusname }
+    }, {
+      $project: {  //Must firts get all data needed by virtuals
+        genus: 1,
+        species: 1,
+        subspecies: 1,
+        variety: 1,
+        cnames: {
+          $arrayElemAt: [
+            '$cnames',
+            {
+              $indexOfArray: [
+                '$cnames.language',
+                "Eng"
+              ]
+            }
+          ]
+        }
+      }
+    }, {
+      $addFields: {
+        firstname: {      //Need a firstname for display
+          $arrayElemAt: [
+            '$cnames.names', 0
+          ]
+        },
+        identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
+          $trim: {
+            input: {
+              $concat: ["$genus.name", " ", "$species.name",
+                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"] }, ""] },
+                { $cond: ["$variety", { $concat: [" var. ", "$variety.name"] }, ""] }
+              ]
+            }
+          }
+        }
+      }
+    }, {
+      $project: {  //Return only virtuals
+        genus: 0,
+        species: 0,
+        subspecies: 0,
+        variety: 0,
+        cnames: 0
+      }
+    }
+  ]).sort('genus.name species.name subspecies.name variety.name');
 }
 
 
