@@ -189,7 +189,8 @@ export async function findByCommonNameLanguageRegex(
   return this.aggregate(
     [{    //Only interested in trees where this language exists
       $match: {
-        'cnames.language': language
+        'cnames.language': language,
+        "cnames.names": {$elemMatch: {$regex: regex, $options: 'i'}}
       }
     }, {
       $project: {   //Only interested in these language entries
@@ -208,11 +209,6 @@ export async function findByCommonNameLanguageRegex(
             }
           ]
         }
-      }
-    },
-    {
-      $match: {     //Only interested in trees where the cname matches the regex
-        'cnames.names': { $regex: regex, $options: 'i' }
       }
     },
     {
