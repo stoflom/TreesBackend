@@ -190,14 +190,14 @@ export async function findByCommonNameLanguageRegex(
     [{    //Only interested in trees where this language exists
       $match: {
         'cnames.language': language,
-        "cnames.names": {$elemMatch: {$regex: regex, $options: 'i'}}
+        "cnames.names": { $elemMatch: { $regex: regex, $options: 'i' } }
       }
     }, {
       $project: {   //Only interested in these language entries
-        genus: 1,
-        species: 1,
-        subspecies: 1,
-        variety: 1,
+        'genus.name': 1,
+        'species.name': 1,
+        'subspecies.name': 1,
+        'variety.name': 1,
         anames: {   //introduce new field with the names pertaining to the language
           $arrayElemAt: [
             '$cnames.names',
