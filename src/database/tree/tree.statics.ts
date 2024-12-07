@@ -198,9 +198,9 @@ export async function findByCommonNameLanguageRegex(
         species: 1,
         subspecies: 1,
         variety: 1,
-        cnames: {
+        anames: {   //introduce new field with the names pertaining to the language
           $arrayElemAt: [
-            '$cnames',
+            '$cnames.names',
             {
               $indexOfArray: [
                 '$cnames.language',
@@ -215,7 +215,7 @@ export async function findByCommonNameLanguageRegex(
       $addFields: {
         firstname: {      //Need a firstname for display
           $arrayElemAt: [
-            '$cnames.names', 0
+            '$anames', 0
           ]
         },
         identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
