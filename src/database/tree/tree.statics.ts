@@ -190,7 +190,6 @@ export async function findByCommonNameLanguageRegex(
     [{    //Only interested in trees where this language exists
       $match: {
         'cnames.language': language,
-        "cnames.names": { $elemMatch: { $regex: regex, $options: 'i' } }
       }
     }, {
       $project: {   //Only interested in these language entries
@@ -198,7 +197,7 @@ export async function findByCommonNameLanguageRegex(
         'species.name': 1,
         'subspecies.name': 1,
         'variety.name': 1,
-        anames: {   //introduce new field with the names pertaining to the language
+        anames: {   //introduce new field with only the nanames in the language
           $arrayElemAt: [
             '$cnames.names',
             {
@@ -211,11 +210,16 @@ export async function findByCommonNameLanguageRegex(
         }
       }
     },
+    { //Now get only the docs where the regex matches
+      $match: {
+        "anames": { $elemMatch: { $regex: regex, $options: 'i' } }
+      }
+    },
     {
       $addFields: {
         firstname: {      //Need a firstname for display
           $arrayElemAt: [
-            '$anames', 0
+            '$anames', 0  //This should rather return the matching name...
           ]
         },
         identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
