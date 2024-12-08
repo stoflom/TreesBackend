@@ -187,59 +187,113 @@ export async function findByCommonNameLanguageRegex(
   regex: string
 ): Promise<ITreeDocument[]> {  //NOTE return agrees with ITreeDocument (I think)
   return this.aggregate(
-    [{    //Only interested in trees where this language exists
-      $match: {
-        'cnames.language': language,
-      }
-    }, {
-      $project: {   //Only interested in these language entries
-        'genus.name': 1,
-        'species.name': 1,
-        'subspecies.name': 1,
-        'variety.name': 1,
-        anames: {   //introduce new field with only the nanames in the language
-          $arrayElemAt: [
-            '$cnames.names',
-            {
-              $indexOfArray: [
-                '$cnames.language',
-                language
-              ]
-            }
-          ]
+    [
+      {
+        //Only interested in trees where this language exists
+        $match: {
+          "cnames.language": language
         }
-      }
-    },
-    { //Now get only the trees where the regex matches
-      $match: {
-        "anames": { $elemMatch: { $regex: regex, $options: 'i' } }
-      }
-    },
-    {
-      $addFields: {
-        firstname: {      //Need a firstname for display
-          $arrayElemAt: [
-            '$anames', 0  //This should rather return the matching name...
-          ]
-        },
-        identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
-          $trim: {
-            input: {
-              $concat: ["$genus.name", " ", "$species.name",
-                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"] }, ""] },
-                { $cond: ["$variety", { $concat: [" var. ", "$variety.name"] }, ""] }
-              ]
+      },
+      {
+        //Now get only the trees where also the name regex matches
+        $match: {
+          "cnames.names": {
+            $elemMatch: {
+              $regex: regex,
+              $options: "i"
             }
           }
-        },
-        id: "$_id"  //add id virtual manually sonce mongoos won't for aggregates.
+        }
+      },
+      {
+        $project: {
+          //Only interested in these entries
+          "genus.name": 1,
+          "species.name": 1,
+          "subspecies.name": 1,
+          "variety.name": 1,
+          anames: {
+            //introduce new field with the names pertaining to the language
+            $arrayElemAt: [
+              "$cnames.names",
+              {
+                $indexOfArray: [
+                  "$cnames.language",
+                  language
+                ]
+              }
+            ]
+          },
+          identity: {
+            //Also need identity, add virtual manually since
+            // mongoose won't for aggregates.
+            $trim: {
+              input: {
+                $concat: [
+                  "$genus.name",
+                  " ",
+                  "$species.name",
+                  {
+                    $cond: [
+                      "$subspecies",
+                      {
+                        $concat: [
+                          " subsp. ",
+                          "$subspecies.name"
+                        ]
+                      },
+                      ""
+                    ]
+                  },
+                  {
+                    $cond: [
+                      "$variety",
+                      {
+                        $concat: [
+                          " var. ",
+                          "$variety.name"
+                        ]
+                      },
+                      ""
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          id: "$_id" //add id virtual manually sonce mongoos won't for aggregates.
+        }
+      },
+      {
+        $addFields: {
+          firstname: {
+            $reduce: {
+              //Match the elemenst from the back, return last match
+              input: { $reverseArray: "$anames" },
+              initialValue: "$anames.0",
+              in: {
+                $cond: {
+                  if: {
+                    $regexFind: {
+                      input: "$$this",
+                      regex: regex,
+                      options: "i"
+                    }
+                  },
+                  then: "$$this",
+                  else: "$$value"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        //We do not need the names array anymore
+        $project: {
+          anames: 0
+        }
       }
-    },
-    {
-      $project: {
-        cnames: 0
-      }
-    }
     ]
   ).sort('Identity');
 }
