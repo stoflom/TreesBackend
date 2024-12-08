@@ -195,17 +195,6 @@ export async function findByCommonNameLanguageRegex(
         }
       },
       {
-        //Now get only the trees where also the name regex matches
-        $match: {
-          "cnames.names": {
-            $elemMatch: {
-              $regex: regex,
-              $options: "i"
-            }
-          }
-        }
-      },
-      {
         $project: {
           //Only interested in these entries
           "genus.name": 1,
@@ -223,6 +212,42 @@ export async function findByCommonNameLanguageRegex(
                 ]
               }
             ]
+          },
+
+        }
+      },
+      {
+        //Now get only the trees where also the name regex matches
+        $match: {
+          "anames": {
+            $elemMatch: {
+              $regex: regex,
+              $options: "i"
+            }
+          }
+        }
+      },
+      {
+        $addFields: {
+          firstname: { //Find first matching name
+            $reduce: {
+              //Match the elements from the back, return last match
+              input: { $reverseArray: "$anames" },
+              initialValue: "$anames.0",
+              in: {
+                $cond: {
+                  if: {
+                    $regexFind: {
+                      input: "$$this",
+                      regex: regex,
+                      options: "i"
+                    }
+                  },
+                  then: "$$this",
+                  else: "$$value"
+                }
+              }
+            }
           },
           identity: {
             //Also need identity, add virtual manually since
@@ -262,30 +287,6 @@ export async function findByCommonNameLanguageRegex(
             }
           },
           id: "$_id" //add id virtual manually sonce mongoos won't for aggregates.
-        }
-      },
-      {
-        $addFields: {
-          firstname: {
-            $reduce: {
-              //Match the elemenst from the back, return last match
-              input: { $reverseArray: "$anames" },
-              initialValue: "$anames.0",
-              in: {
-                $cond: {
-                  if: {
-                    $regexFind: {
-                      input: "$$this",
-                      regex: regex,
-                      options: "i"
-                    }
-                  },
-                  then: "$$this",
-                  else: "$$value"
-                }
-              }
-            }
-          }
         }
       },
       {
