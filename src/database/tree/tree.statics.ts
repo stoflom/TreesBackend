@@ -210,7 +210,7 @@ export async function findByCommonNameLanguageRegex(
         }
       }
     },
-    { //Now get only the docs where the regex matches
+    { //Now get only the trees where the regex matches
       $match: {
         "anames": { $elemMatch: { $regex: regex, $options: 'i' } }
       }
