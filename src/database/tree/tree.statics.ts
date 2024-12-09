@@ -213,7 +213,6 @@ export async function findByCommonNameLanguageRegex(
               }
             ]
           },
-
         }
       },
       {
@@ -227,13 +226,13 @@ export async function findByCommonNameLanguageRegex(
           }
         }
       },
-      {
+      { //Docs has now been reduced afap, now add entries
         $addFields: {
-          firstname: { //Find first matching name
+          firstname: { //Find first matching common name
             $reduce: {
               //Match the elements from the back, return last match
               input: { $reverseArray: "$anames" },
-              initialValue: "$anames.0",
+              initialValue: "$anames.0",  //If all else fails, returns first name
               in: {
                 $cond: {
                   if: {
@@ -243,8 +242,8 @@ export async function findByCommonNameLanguageRegex(
                       options: "i"
                     }
                   },
-                  then: "$$this",
-                  else: "$$value"
+                  then: "$$this",  //If matche found, set $$value to $$this
+                  else: "$$value"  //If not, retain old $$value
                 }
               }
             }
