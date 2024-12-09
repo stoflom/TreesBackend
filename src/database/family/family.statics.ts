@@ -20,7 +20,8 @@ export async function findByFamilyName(
     'name': 1,
     'cnames': 1,
     'genuslist': 1,
-    'comments': 1
+    'comments': 1,
+    'hyperlinks': 1
   }).sort('name');
 }
 

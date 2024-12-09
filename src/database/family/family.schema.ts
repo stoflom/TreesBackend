@@ -1,5 +1,5 @@
 import * as Mongoose from 'mongoose';
-import { CommentSchema, CNamesSchema } from '../common/common.schema';
+import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common.schema';
 
 import {
   findByFamilyName,
@@ -16,6 +16,7 @@ const FamilySchema = new Mongoose.Schema(
     comments: { type: [CommentSchema], default: undefined },
     cnames: { type: [CNamesSchema], default: undefined },
     genuslist: { type: [String], default: undefined },
+    hyperlinks : { type: [CHyperlinksSchema], default: undefined }
   },
   {
     timestamps: true, //Add timestamps, __V (version) will also be added automatically
