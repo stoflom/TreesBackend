@@ -27,7 +27,7 @@ export async function findByFamilyName(
 
 
 
-//Note: aggregates return random jason and mongoos will not add
+//Note: aggregates return random json and mongoos will not add
 // virtual variables by itself, they must be added manually.
 export async function findByCommonNameLanguageRegex(
   language: string,
@@ -39,10 +39,9 @@ export async function findByCommonNameLanguageRegex(
         'cnames.language': language
       }
     }, {
-      $project: {   //Only interested in these language entries
-        Family: 1,
-        species: 1,
-        cnames: {
+      $project: {   //Only interested in this language entries
+        name: 1,
+        anames: {
           $arrayElemAt: [
             '$cnames',
             {
@@ -57,20 +56,28 @@ export async function findByCommonNameLanguageRegex(
     },
     {
       $match: {     //Only interested in Familys where the cname mathes the regex
-        'cnames.names': { $regex: regex, $options: 'i' }
+        'anames.names': { $regex: regex, $options: 'i' }
       }
     },
     {
       $addFields: {
-        firstname: {      //Need a firstname for display
-          $arrayElemAt: ['$cnames.names', 0]  //will not always be the matching name 
-        },
-        identity: {       //Also need identity, add virtual manually sonce mongoos won't for aggregates.
-          $trim: {
-            input: {
-              $concat: ["$Family.name", " ", "$species.name", " ",
-                { $ifNull: ["$subspecies.name", "$variety.name", " "] }
-              ]
+        firstname: {
+          $reduce: {
+            //Match the elemenst from the back, return last match
+            input: { $reverseArray: "$anames" },
+            initialValue: "$anames.0",
+            in: {
+              $cond: {
+                if: {
+                  $regexFind: {
+                    input: "$$this",
+                    regex: regex,
+                    options: "i"
+                  }
+                },
+                then: "$$this",  //If it matches, set value to this
+                else: "$$value"  //If not, keep old value
+              }
             }
           }
         },
@@ -79,7 +86,7 @@ export async function findByCommonNameLanguageRegex(
     },
     {
       $project: {
-        cnames: 0
+      anames: 0
       }
     }
     ]
