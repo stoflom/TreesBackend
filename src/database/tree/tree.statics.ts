@@ -180,12 +180,13 @@ export async function findByCommonNameRegex(
   ).sort('genus.name species.name subspecies.name variety.name');
 }
 
-//Note: aggregates return random jason and mongoos will not add
+//Note: aggregates return random json and mongoose will not add
 // virtual variables by itself, they must be added manually.
+// Find common name regex match in specified language
 export async function findByCommonNameLanguageRegex(
   language: string,
   regex: string
-): Promise<ITreeDocument[]> {  //NOTE return agrees with ITreeDocument (I think)
+): Promise<ITreeDocument[]> {  //NOTE return agrees with ITreeDocument (I hope :-))
   return this.aggregate(
     [
       {
@@ -202,7 +203,7 @@ export async function findByCommonNameLanguageRegex(
           "subspecies.name": 1,
           "variety.name": 1,
           anames: {
-            //introduce new field with the names pertaining to the language
+            //introduce new field with only the names in the given language
             $arrayElemAt: [
               "$cnames.names",
               {
