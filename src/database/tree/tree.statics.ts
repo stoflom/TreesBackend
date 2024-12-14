@@ -72,7 +72,7 @@ export async function findByGenusName(
           $trim: {
             input: {
               $concat: ["$genus.name", " ", "$species.name",
-                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"] }, ""] },
+                { $cond: ["$subspecies", { $concat: [" subsp. ", "$subspecies.name"] }, ""] },
                 { $cond: ["$variety", { $concat: [" var. ", "$variety.name"] }, ""] }
               ]
             }
@@ -373,7 +373,7 @@ export async function findByGroup(
           $trim: {
             input: {
               $concat: ["$genus.name", " ", "$species.name",
-                { $cond: ["$subspecies", { $concat: [" subsp.", "$subspecies.name"] }, ""] },
+                { $cond: ["$subspecies", { $concat: [" subsp. ", "$subspecies.name"] }, ""] },
                 { $cond: ["$variety", { $concat: [" var. ", "$variety.name"] }, ""] }
               ]
             }
