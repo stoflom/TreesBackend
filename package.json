@@ -13,23 +13,23 @@
     "script": "cd src/scripts && ts-node"
   },
   "dependencies": {
-    "@types/morgan": "^1.9.9",
+    "@types/morgan": "^1.9.10",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "mongoose": "^8.14.0",
+    "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "@types/mongoose": "^5.11.97",
-    "@types/node": "^22.15.3",
+    "@types/node": "^22.15.30",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "yarn-upgrade-all": "^0.7.5"
   },
   "private": true,
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.2"
 }
