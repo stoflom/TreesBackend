@@ -16,15 +16,15 @@
     "@types/morgan": "^1.9.10",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "mongoose": "^8.15.1",
-    "morgan": "^1.10.0",
+    "mongoose": "^8.17.1",
+    "morgan": "^1.10.1",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/mongoose": "^5.11.97",
-    "@types/node": "^22.15.30",
+    "@types/node": "^22.17.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
