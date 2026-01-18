@@ -32,9 +32,9 @@ curl -H "application/x-www-form-urlencoded" localhost:5002/api/treegs/acacia/kar
 curl -H "application/x-www-form-urlencoded" localhost:5002/api/id/5fae3c24cd7252082772bdee 
 
 # query JSON passthrough to MongoDB (must use -X GET, default is POST for json) (This currently returns the genus name and species name only)
-curl -X GET -H  "Content-Type: application/json"  -d  '{"genus.name": "Adenia", "species.name": "fruticosa" }'   localhost:5002/api/trees2 | jq '.'
+curl -X GET -H  "Content-Type: application/json"  -d  '{"genus.name": "Adenia", "species.name": "fruticosa" }'   localhost:5002/api/treesjq | jq '.'
 
-curl -X GET -H  "Content-Type: application/json"  -d  '{ "_id" : "5fae3c24cd7252082772bdee"}' localhost:5002/api/trees2 | jq '.'
+curl -X GET -H  "Content-Type: application/json"  -d  '{ "_id" : "5fae3c24cd7252082772bdee"}' localhost:5002/api/treesjq | jq '.'
 
 # find common name matching regex
 curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie
@@ -47,12 +47,12 @@ curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*biet
 # or using JSON, e.g.
 curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, cnames: .[].cnames[0]}'
 # FSAnumbers and Afr common names
-url -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, cnames: .[].cnames[] | select(.language=="Afr")}'
+curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, cnames: .[].cnames[] | select(.language=="Afr")}'
 # more complete
 curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, genus: .[].genus.name, species:  .[].species.name, cnames: .[].cnames[] | select(.language=="Afr")}'
 
 # find trees in group 8
-curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/group/8 | jq '.' | grep scientificName
+curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/group/8 | jq '.' | grep identity
 
 # find genus adenia in genuscols
 curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.'

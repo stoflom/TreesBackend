@@ -11,7 +11,7 @@ import { Types } from 'mongoose';
     species: { name: 'Holmes', authority: 'myself' },
     subspecies: { name: 'Subspecies', authority: 'Someone else' },
     variety: { name: 'Variety', authority: 'Variety guru' },
-    comment: { text: 'A nasty comment', reference: 'nasty nasty' },
+    comments: [{ text: 'A nasty comment', reference: 'nasty nasty' }],
     FSAnumber: 'FSA123456789',
     Znumber: 'Z123457',
     synonyms: [

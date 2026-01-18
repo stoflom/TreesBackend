@@ -15,14 +15,14 @@
   "dependencies": {
     "@types/morgan": "^1.9.10",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "mongoose": "^8.17.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.4",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
+    "@types/express": "^5.0.6",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.17.1",
     "nodemon": "^3.1.10",

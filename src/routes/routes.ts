@@ -16,7 +16,7 @@ export const theRouter = Router();
 //Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/treegenus/adenia | jq '.' (pretty print pipe)
 theRouter.get('/api/treegenus/:name', async (req: Request, res: Response) => {
   const trees: ITreeDocument[] = await TreeModel.findByGenusName(
-    req.params.name
+    req.params.name as string
   );
   res.send(trees);
 });
@@ -26,7 +26,7 @@ theRouter.get(
   '/api/cname/:regex',
   async (req: Request, res: Response) => {
     const trees: ITreeDocument[] = await TreeModel.findByCommonNameRegex(
-      req.params.regex
+      req.params.regex as string
     );
     res.send(trees);
   }
@@ -44,8 +44,8 @@ theRouter.get(
   async (req: Request, res: Response) => {
     const trees: ITreeDocument[] =
       await TreeModel.findByCommonNameLanguageRegex(
-        req.params.language,
-        req.params.regex
+        req.params.language as string,
+        req.params.regex as string
       );
       res.send(trees);
   }
@@ -56,7 +56,7 @@ theRouter.get(
   '/api/sname/:regex',
   async (req: Request, res: Response) => {
     const trees: ITreeDocument[] = await TreeModel.findBySpeciesNameRegex(
-      req.params.regex
+      req.params.regex as string
     );
     res.send(trees);
   }
@@ -67,8 +67,8 @@ theRouter.get(
   '/api/treegs/:gname/:sname',
   async (req: Request, res: Response) => {
     const trees: ITreeDocument[] = await TreeModel.findByGenusSpeciesNames(
-      req.params.gname,
-      req.params.sname
+      req.params.gname as string,
+      req.params.sname as string
     );
     res.send(trees);
   }
@@ -107,7 +107,7 @@ theRouter.get(
   '/api/group/:group',
   async (req: Request, res: Response) => {
     const trees: ITreeDocument[] = await TreeModel.findByGroup(
-      req.params.group
+      req.params.group as string
     );
     res.send(trees);
   }
@@ -118,7 +118,7 @@ theRouter.get(
 //Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.' (pretty print pipe)
 theRouter.get('/api/genus/:name', async (req: Request, res: Response) => {
   const genus: IGenusDocument = await GenusModel.findByGenusName(
-    req.params.name
+    req.params.name as string
   );
   res.send(genus);
 });
@@ -127,7 +127,7 @@ theRouter.get('/api/genus/:name', async (req: Request, res: Response) => {
 //Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/Anacardiaceae | jq '.' (pretty print pipe)
 theRouter.get('/api/family/:name', async (req: Request, res: Response) => {
   const family: IFamilyDocument = await FamilyModel.findByFamilyName(
-    req.params.name
+    req.params.name as string
   );
   res.send(family);
 });
