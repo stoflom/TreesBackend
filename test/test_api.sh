@@ -45,4 +45,4 @@ curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/g
 echo "Testing: find family acanthaceae in familycols"
 curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/acanthaceae | jq '.'
 
-echo "--- All tests passed ---"
+echo "--- All tests finished ---"
