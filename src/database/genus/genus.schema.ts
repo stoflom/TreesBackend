@@ -3,6 +3,7 @@ import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common
 
 import {
   findByGenusName,
+  findByGenusNameRegex
  } from './genus.statics';
 
 
@@ -30,6 +31,7 @@ const GenusSchema = new Mongoose.Schema(
 
 //Register static methods (must be imported from Genuss.statics and made visible in Genuss.types)
 GenusSchema.statics.findByGenusName = findByGenusName;
+GenusSchema.statics.findByGenusNameRegex = findByGenusNameRegex;
 
 //Register instance methods (must be imported from Genuss.methods and made visible in Genuss.types)
 // GenusSchema.methods.setLastUpdated = setLastUpdated;

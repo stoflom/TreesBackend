@@ -38,4 +38,10 @@ export interface IGenusModel extends Model<IGenusDocument> {
     genusname: string
   ) => Promise<IGenusDocument>;
 
+  findByGenusNameRegex: (
+    //arrow function
+    this: IGenusModel,
+    genusname: string
+  ) => Promise<IGenusDocument[]>;
+
 }

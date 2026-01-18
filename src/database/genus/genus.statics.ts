@@ -26,6 +26,20 @@ export async function findByGenusName(
   }).sort('name');
 }
 
+//Returns array
+export async function findByGenusNameRegex(
+  name: string
+): Promise <IGenusDocument[]> {
+  return this.find({ 'name': { '$regex': name, '$options': 'i' } }).select({   //If you use "find" you always get an array
+    'name': 1,
+    'authority': 1,
+    'family': 1,
+    'cnames': 1,
+    'comments': 1,
+    'hyperlinks': 1
+  }).sort('name');
+}
+
 
 //Note: aggregates return random json and mongoos will not add
 // virtual variables by itself, they must be added manually.

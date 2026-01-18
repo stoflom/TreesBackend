@@ -115,10 +115,18 @@ theRouter.get(
 
 
 
-//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.' (pretty print pipe)
-theRouter.get('/api/genus/:name', async (req: Request, res: Response) => {
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/name/adenia | jq '.' (pretty print pipe)
+theRouter.get('/api/genus/name/:name', async (req: Request, res: Response) => {
   const genus: IGenusDocument = await GenusModel.findByGenusName(
     req.params.name as string
+  );
+  res.send(genus);
+});
+
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/regex/adenia | jq '.' (pretty print pipe)
+theRouter.get('/api/genus/regex/:regex', async (req: Request, res: Response) => {
+  const genus: IGenusDocument[] = await GenusModel.findByGenusNameRegex(
+    req.params.regex as string
   );
   res.send(genus);
 });
