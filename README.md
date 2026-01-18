@@ -22,6 +22,17 @@ To get debug logging do:
 # EXAMPLES of use:
 # ROUTES: (To pretty print pipe response through jq: " | jq '.' ")
 
+# API Tests
+A suite of API tests has been created to ensure all endpoints are functioning as expected. These tests are essentially the `curl` commands from this README, extracted into an executable script.
+
+To run the API tests, navigate to the `test` directory and execute the `test_api.sh` script:
+```bash
+cd test
+./test_api.sh
+```
+
+Ensure the backend server is running (`yarn start`) before executing the tests.
+
 # find all "adenias"
 curl -H "application/x-www-form-urlencoded" localhost:5002/api/treegenus/adenia  | jq '.'
 
