@@ -1,72 +1,80 @@
-# SA trees backend api
+# SA Trees Backend API
 
-# This backend application assumes a MongDB database is available as originally created by project
-# SARTrees (repository ../../SARTrees).
+This repository contains the backend API for the South African Trees project. It's a Node.js + TypeScript + Express application that expects a MongoDB database (originally populated by the SARTrees project).
 
-This project was orihinally based on tutorial: Using TypeScript with MongoDB.
+This project was originally based on the tutorial "Using TypeScript with MongoDB":
 https://medium.com/swlh/using-typescript-with-mongodb-393caf7adfef
 
-To create tree entries in db do: 
+Prerequisites
+- Node.js (16+ recommended)
+- yarn
+- A running MongoDB instance populated with tree data
+
+Common scripts
+- Create dummy data in the database:
     yarn script createDummyData
 
-To run main (test.ts) do:
+- Run the main test script (test.ts):
     yarn script test
 
-To start the server do:
+- Start the server:
     yarn start
 
-To get debug logging do:
-    DEBUG=express:*  yarn start
+- Enable debug logging for Express:
+    DEBUG=express:* yarn start
 
+API tests
+A suite of API tests has been created (the curl commands from this README extracted into a script).
+To run the API tests:
 
-# EXAMPLES of use:
-# ROUTES: (To pretty print pipe response through jq: " | jq '.' ")
-
-# API Tests
-A suite of API tests has been created to ensure all endpoints are functioning as expected. These tests are essentially the `curl` commands from this README, extracted into an executable script.
-
-To run the API tests, navigate to the `test` directory and execute the `test_api.sh` script:
 ```bash
 cd test
 ./test_api.sh
 ```
 
-Ensure the backend server is running (`yarn start`) before executing the tests.
+Ensure the backend server is running (yarn start) before executing the tests.
 
-# find all "adenias"
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/treegenus/adenia  | jq '.'
+Examples
+Note: many endpoints expect form-urlencoded content. Where appropriate the Content-Type header is shown.
 
-# find all variants of "acacia karroo"
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/treegs/acacia/karroo  | jq '.'
+- Find all "Adenia" entries by genus:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/treegenus/adenia | jq '.'
 
-# find details of a single tree by MongoDB _id:
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/id/5fae3c24cd7252082772bdee 
+- Find all variants of "Acacia karroo":
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/treegs/acacia/karroo | jq '.'
 
-# query JSON passthrough to MongoDB (must use -X GET, default is POST for json) (This currently returns the genus name and species name only)
-curl -X GET -H  "Content-Type: application/json"  -d  '{"genus.name": "Adenia", "species.name": "fruticosa" }'   localhost:5002/api/treesjq | jq '.'
+- Find a tree by MongoDB _id:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/id/5fae3c24cd7252082772bdee
 
-curl -X GET -H  "Content-Type: application/json"  -d  '{ "_id" : "5fae3c24cd7252082772bdee"}' localhost:5002/api/treesjq | jq '.'
+- Query JSON passthrough to MongoDB (use GET for queries; this endpoint returns limited fields):
+  curl -X GET -H "Content-Type: application/json" -d '{"genus.name": "Adenia", "species.name": "fruticosa" }' http://localhost:5002/api/treesjq | jq '.'
 
-# find common name matching regex
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie
+  curl -X GET -H "Content-Type: application/json" -d '{"_id":"5fae3c24cd7252082772bdee"}' http://localhost:5002/api/treesjq | jq '.'
 
-# find scientific species name matching regex
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/sname/ataxa 
+- Find common name matching regex:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/cname/wag\.*bietjie | jq '.'
 
-# Can use jq pipe to further filter output, e.g. print only common names of trees
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '.[].cnames[0].names[0]'
-# or using JSON, e.g.
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, cnames: .[].cnames[0]}'
-# FSAnumbers and Afr common names
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, cnames: .[].cnames[] | select(.language=="Afr")}'
-# more complete
-curl -H "application/x-www-form-urlencoded" localhost:5002/api/cname/wag\.\*bietjie | jq '{FSA: .[].FSAnumber, genus: .[].genus.name, species:  .[].species.name, cnames: .[].cnames[] | select(.language=="Afr")}'
+- Find scientific species name matching regex:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/sname/ataxa | jq '.'
 
-# find trees in group 8
-curl -H "Content-Type: application/x-www-form-urlencoded" localhost:5002/api/group/8 | jq '.' | grep identity
+- Example: print only common names of trees:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/cname/wag\.*bietjie | jq '.[].cnames[0].names[0]'
 
-# find genus adenia in genuscols
-curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/adenia | jq '.'
+- Print FSA numbers and Afrikaans common names:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/cname/wag\.*bietjie | jq '{FSA: .[].FSAnumber, cnames: .[].cnames[] | select(.language=="Afr")} '
 
-# find family acanthaceae in familycols
-curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/acanthaceae | jq '.'
+- Find trees in group 8:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/group/8 | jq '.' | grep identity
+
+- Find genus "adenia" in genuscols:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/genus/adenia | jq '.'
+
+- Find family "acanthaceae" in familycols:
+  curl -H "Content-Type: application/x-www-form-urlencoded" http://localhost:5002/api/family/acanthaceae | jq '.'
+
+Notes
+- The server defaults to port 5002 unless configured otherwise.
+- If you encounter issues connecting to MongoDB, verify the connection URI and that the database is accessible from the host running this service.
+
+Contributing
+Contributions and fixes are welcome. Please open issues or PRs on GitHub.
