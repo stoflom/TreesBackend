@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "_id",
+    "authority",
+    "family",
+    "hyperlinks",
+    "name"
+  ],
+  "properties": {
+    "_id": {
+      "$ref": "#/$defs/ObjectId"
+    },
+    "authority": {
+      "type": "string"
+    },
+    "cnames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "language",
+          "names"
+        ],
+        "properties": {
+          "language": {
+            "type": "string"
+          },
+          "names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reference",
+          "text"
+        ],
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "family": {
+      "type": "string"
+    },
+    "hyperlinks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "language",
+          "link",
+          "org"
+        ],
+        "properties": {
+          "language": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "org": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "ObjectId": {
+      "type": "object",
+      "properties": {
+        "$oid": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        }
+      },
+      "required": [
+        "$oid"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

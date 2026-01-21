@@ -1,0 +1,40 @@
+{
+  "_id": {
+    "$oid": "622a132d4953a86709cb95ab"
+  },
+  "name": "Abutilon",
+  "authority": "Mill.",
+  "family": "Malvaceae",
+  "comments": [
+    {
+      "text": "(in narrow sense)",
+      "reference": "dnsat"
+    }
+  ],
+  "cnames": [
+    {
+      "names": [
+        "Chinese lanternbosse"
+      ],
+      "language": "Afr"
+    },
+    {
+      "names": [
+        "Chinese-lanterns"
+      ],
+      "language": "Eng"
+    }
+  ],
+  "hyperlinks": [
+    {
+      "language": "Afr",
+      "link": "https://af.wikipedia.org/wiki/Abutilon",
+      "org": "Wikipedia"
+    },
+    {
+      "org": "Wikipedia",
+      "link": "https://en.wikipedia.org/wiki/Abutilon",
+      "language": "Eng"
+    }
+  ]
+}

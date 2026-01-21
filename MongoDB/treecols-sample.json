@@ -1,0 +1,72 @@
+{
+  "_id": {
+    "$oid": "622a132d4953a86709cb95ad"
+  },
+  "genus": {
+    "name": "Abutilon",
+    "fref": {
+      "$oid": "622a132d4953a86709cb95ab"
+    }
+  },
+  "species": {
+    "name": "pycnodon",
+    "authority": "Hochr."
+  },
+  "synonyms": [
+    {
+      "genus": "Abutilon",
+      "species": {
+        "name": "matopense",
+        "authority": "Gibbs"
+      }
+    }
+  ],
+  "FSAnumber": "FSA463.15",
+  "Znumber": "Z609",
+  "cnames": [
+    {
+      "names": [
+        "wilde Chinese lantern†",
+        "klokkiesblom",
+        "wilde-abutilon"
+      ],
+      "language": "Afr"
+    },
+    {
+      "language": "Eng",
+      "names": [
+        "wild abutilon (Z)†",
+        "wild Chinese-lantern (SA)†",
+        "bellflower"
+      ]
+    }
+  ],
+  "vegtypes": [
+    "NK",
+    "SB",
+    "SL"
+  ],
+  "hyperlinks": [
+    {
+      "link": "https://af.wikipedia.org/wiki/Abutilon_pycnodon",
+      "org": "Wikipedia",
+      "language": "Afr"
+    },
+    {
+      "language": "Eng",
+      "org": "Wikipedia",
+      "link": "https://en.wikipedia.org/wiki/Abutilon_pycnodon"
+    },
+    {
+      "link": "https://pza.sanbi.org/Abutilon-pycnodon",
+      "language": "Eng",
+      "org": "SANBI"
+    },
+    {
+      "link": "https://www.worldfloraonline.org/taxon/wfo-0000512229",
+      "org": "WFO",
+      "language": "Eng"
+    }
+  ],
+  "wfoid": "wfo-0000512229"
+}

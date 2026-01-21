@@ -1,0 +1,41 @@
+{
+  "_id": {
+    "$oid": "626be5e35a22d388e0914528"
+  },
+  "genuslist": [
+    "Anisotes",
+    "Brillantaisia",
+    "Duvernoia",
+    "Justicia",
+    "Mackaya",
+    "Metarungia",
+    "Sclerochiton"
+  ],
+  "cnames": [
+    {
+      "language": "Eng",
+      "names": [
+        "lipflower family"
+      ]
+    },
+    {
+      "language": "Afr",
+      "names": [
+        "lippeblomfamilie"
+      ]
+    }
+  ],
+  "name": "Acanthaceae",
+  "hyperlinks": [
+    {
+      "org": "Wikipedia",
+      "link": "https://af.wikipedia.org/wiki/Acanthaceae",
+      "language": "Afr"
+    },
+    {
+      "link": "https://en.wikipedia.org/wiki/Acanthaceae",
+      "language": "Eng",
+      "org": "Wikipedia"
+    }
+  ]
+}

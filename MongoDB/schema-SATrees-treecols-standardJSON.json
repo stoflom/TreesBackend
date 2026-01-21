@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "_id",
+    "cnames",
+    "genus",
+    "hyperlinks",
+    "species"
+  ],
+  "properties": {
+    "_id": {
+      "$ref": "#/$defs/ObjectId"
+    },
+    "cnames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "language",
+          "names"
+        ],
+        "properties": {
+          "language": {
+            "type": "string"
+          },
+          "names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reference",
+          "text"
+        ],
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FSAnumber": {
+      "type": "string"
+    },
+    "genus": {
+      "type": "object",
+      "required": [
+        "fref",
+        "name"
+      ],
+      "properties": {
+        "fref": {
+          "$ref": "#/$defs/ObjectId"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "group": {
+      "type": "string"
+    },
+    "hyperlinks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "language",
+          "link",
+          "org"
+        ],
+        "properties": {
+          "language": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "org": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "species": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "subspecies": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "genus",
+          "species"
+        ],
+        "properties": {
+          "genus": {
+            "type": "string"
+          },
+          "species": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "authority": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "subspecies": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "authority": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "variety": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "authority": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "variety": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "vegtypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "wfoid": {
+      "type": "string"
+    },
+    "Znumber": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "ObjectId": {
+      "type": "object",
+      "properties": {
+        "$oid": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        }
+      },
+      "required": [
+        "$oid"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
