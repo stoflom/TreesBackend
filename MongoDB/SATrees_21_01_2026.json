@@ -1,0 +1,574 @@
+{
+  "collections": {
+    "SATrees.familycols": {
+      "ns": "SATrees.familycols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "cnames",
+          "genuslist",
+          "hyperlinks",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "cnames": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "language": {
+                  "bsonType": "string"
+                },
+                "names": {
+                  "bsonType": "array",
+                  "items": {
+                    "bsonType": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "language",
+                "names"
+              ]
+            }
+          },
+          "comments": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "reference": {
+                  "bsonType": "string"
+                },
+                "text": {
+                  "bsonType": "string"
+                }
+              },
+              "required": [
+                "reference",
+                "text"
+              ]
+            }
+          },
+          "genuslist": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "string"
+            }
+          },
+          "hyperlinks": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "language": {
+                  "bsonType": "string"
+                },
+                "link": {
+                  "bsonType": "string"
+                },
+                "org": {
+                  "bsonType": "string"
+                }
+              },
+              "required": [
+                "language",
+                "link",
+                "org"
+              ]
+            }
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.genuscols": {
+      "ns": "SATrees.genuscols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "authority",
+          "family",
+          "hyperlinks",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "authority": {
+            "bsonType": "string"
+          },
+          "cnames": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "language": {
+                  "bsonType": "string"
+                },
+                "names": {
+                  "bsonType": "array",
+                  "items": {
+                    "bsonType": "string"
+                  }
+                }
+              },
+              "required": [
+                "language",
+                "names"
+              ]
+            }
+          },
+          "comments": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "reference": {
+                  "bsonType": "string"
+                },
+                "text": {
+                  "bsonType": "string"
+                }
+              },
+              "required": [
+                "reference",
+                "text"
+              ]
+            }
+          },
+          "family": {
+            "bsonType": "string"
+          },
+          "hyperlinks": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "language": {
+                  "bsonType": "string"
+                },
+                "link": {
+                  "bsonType": "string"
+                },
+                "org": {
+                  "bsonType": "string"
+                }
+              },
+              "required": [
+                "language",
+                "link",
+                "org"
+              ]
+            }
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.logcols": {
+      "ns": "SATrees.logcols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "author",
+          "date",
+          "log"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "author": {
+            "bsonType": "string"
+          },
+          "comment": {
+            "bsonType": "string"
+          },
+          "date": {
+            "bsonType": "string"
+          },
+          "log": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.oldfamilycols": {
+      "ns": "SATrees.oldfamilycols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "newname",
+          "oldname",
+          "source"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "newname": {
+            "bsonType": "string"
+          },
+          "oldname": {
+            "bsonType": "string"
+          },
+          "source": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.oldnamecols": {
+      "ns": "SATrees.oldnamecols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "newname",
+          "oldname",
+          "source"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "newname": {
+            "bsonType": "string"
+          },
+          "oldname": {
+            "bsonType": "string"
+          },
+          "source": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.sourcecols": {
+      "ns": "SATrees.sourcecols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "date",
+          "key",
+          "language",
+          "license",
+          "publisher",
+          "title",
+          "type",
+          "website"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "authors": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "name": {
+                  "bsonType": "string"
+                },
+                "surname": {
+                  "bsonType": "string"
+                }
+              },
+              "required": [
+                "name",
+                "surname"
+              ]
+            }
+          },
+          "citation": {
+            "bsonType": "string"
+          },
+          "date": {
+            "bsonType": "string"
+          },
+          "edition": {
+            "bsonType": "string"
+          },
+          "isbn": {
+            "bsonType": "string"
+          },
+          "key": {
+            "bsonType": "string"
+          },
+          "language": {
+            "bsonType": "string"
+          },
+          "license": {
+            "bsonType": "string"
+          },
+          "publisher": {
+            "bsonType": "string"
+          },
+          "source": {
+            "bsonType": "string"
+          },
+          "subtitle": {
+            "bsonType": "string"
+          },
+          "title": {
+            "bsonType": "string"
+          },
+          "type": {
+            "bsonType": "string"
+          },
+          "website": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.treecols": {
+      "ns": "SATrees.treecols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "cnames",
+          "genus",
+          "hyperlinks",
+          "species"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "cnames": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "language": {
+                  "bsonType": "string"
+                },
+                "names": {
+                  "bsonType": "array",
+                  "items": {
+                    "bsonType": "string"
+                  }
+                }
+              },
+              "required": [
+                "language",
+                "names"
+              ]
+            }
+          },
+          "FSAnumber": {
+            "bsonType": "string"
+          },
+          "genus": {
+            "bsonType": "object",
+            "properties": {
+              "fref": {
+                "bsonType": "objectId"
+              },
+              "name": {
+                "bsonType": "string"
+              }
+            },
+            "required": [
+              "fref",
+              "name"
+            ]
+          },
+          "group": {
+            "bsonType": "string"
+          },
+          "hyperlinks": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "language": {
+                  "bsonType": "string"
+                },
+                "link": {
+                  "bsonType": "string"
+                },
+                "org": {
+                  "bsonType": "string"
+                }
+              },
+              "required": [
+                "language",
+                "link",
+                "org"
+              ]
+            }
+          },
+          "species": {
+            "bsonType": "object",
+            "properties": {
+              "authority": {
+                "bsonType": "string"
+              },
+              "name": {
+                "bsonType": "string"
+              }
+            },
+            "required": [
+              "authority",
+              "name"
+            ]
+          },
+          "subspecies": {
+            "bsonType": "object",
+            "properties": {
+              "authority": {
+                "bsonType": "string"
+              },
+              "name": {
+                "bsonType": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "synonyms": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "genus": {
+                  "bsonType": "string"
+                },
+                "species": {
+                  "bsonType": "object",
+                  "properties": {
+                    "authority": {
+                      "bsonType": "string"
+                    },
+                    "name": {
+                      "bsonType": "string"
+                    }
+                  },
+                  "required": [
+                    "authority",
+                    "name"
+                  ]
+                },
+                "variety": {
+                  "bsonType": "object",
+                  "properties": {
+                    "authority": {
+                      "bsonType": "string"
+                    },
+                    "name": {
+                      "bsonType": "string"
+                    }
+                  },
+                  "required": [
+                    "authority",
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "genus",
+                "species"
+              ]
+            }
+          },
+          "variety": {
+            "bsonType": "object",
+            "properties": {
+              "authority": {
+                "bsonType": "string"
+              },
+              "name": {
+                "bsonType": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "vegtypes": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "string"
+            }
+          },
+          "wfoid": {
+            "bsonType": "string"
+          },
+          "Znumber": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "SATrees.vegetationcols": {
+      "ns": "SATrees.vegetationcols",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "abbreviation",
+          "description",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "abbreviation": {
+            "bsonType": "string"
+          },
+          "description": {
+            "bsonType": "string"
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        }
+      }
+    }
+  },
+  "relationships": [
+    {
+      "id": "a3f29437-636e-48a1-af0b-f0e5f13efd4d",
+      "relationship": [
+        {
+          "ns": "SATrees.treecols",
+          "fields": [
+            "genus",
+            "fref"
+          ],
+          "cardinality": 1
+        },
+        {
+          "ns": "SATrees.genuscols",
+          "fields": [
+            "_id"
+          ],
+          "cardinality": 1
+        }
+      ],
+      "isInferred": true
+    }
+  ]
+}
