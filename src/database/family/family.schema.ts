@@ -3,6 +3,7 @@ import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common
 
 import {
   findByFamilyName,
+  findByFamilyNameRegex,
   findByCommonNameLanguageRegex,
 } from './family.statics';
 
@@ -30,6 +31,7 @@ const FamilySchema = new Mongoose.Schema(
 
 //Register static methods (must be imported from Familys.statics and made visible in Familys.types)
 FamilySchema.statics.findByFamilyName = findByFamilyName;
+FamilySchema.statics.findByFamilyNameRegex = findByFamilyNameRegex;
 FamilySchema.statics.findByCommonNameLanguageRegex =
   findByCommonNameLanguageRegex;
 

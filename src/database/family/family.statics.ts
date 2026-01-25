@@ -25,6 +25,19 @@ export async function findByFamilyName(
   }).sort('name');
 }
 
+//Returns array
+export async function findByFamilyNameRegex(
+  name: string
+): Promise<IFamilyDocument[]> {
+  return this.find({ 'name': { '$regex': name, '$options': 'i' } }).select({
+    'name': 1,
+    'cnames': 1,
+    'genuslist': 1,
+    'comments': 1,
+    'hyperlinks': 1
+  }).sort('name');
+}
+
 
 
 //Note: aggregates return random json and mongoos will not add

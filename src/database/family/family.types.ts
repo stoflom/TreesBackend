@@ -34,6 +34,12 @@ export interface IFamilyModel extends Model<IFamilyDocument> {
   ) => Promise<IFamilyDocument>;
 
 
+  findByFamilyNameRegex: (
+    //arrow function
+    this: IFamilyModel,
+    name: string
+  ) => Promise<IFamilyDocument[]>;
+
   findByCommonNameLanguageRegex: (
     //arrow function
     this: IFamilyModel,

@@ -48,4 +48,7 @@ curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/f
 echo "Testing: find genus with regex Acac.*"
 curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/genus/regex/Acac.* | jq '.'
 
+echo "Testing: find family with regex .*ace.*"
+curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/regex/.*ace.* | jq '.'
+
 echo "--- All tests finished ---"

@@ -140,6 +140,14 @@ theRouter.get('/api/family/:name', async (req: Request, res: Response) => {
   res.send(family);
 });
 
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/regex/ace.* | jq '.' (pretty print pipe)
+theRouter.get('/api/family/regex/:regex', async (req: Request, res: Response) => {
+  const families: IFamilyDocument[] = await FamilyModel.findByFamilyNameRegex(
+    req.params.regex as string
+  );
+  res.send(families);
+});
+
 /*
 // Test: curl -X POST -H  "Content-Type: application/json"  -d  '{"title": "hi", "description": "hallo"}' localhost:3000/api/todo
 todoRouter.post("/api/todo", async (req, res) => {
