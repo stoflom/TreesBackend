@@ -5,6 +5,8 @@ import { GenusModel } from '../database/genus/genus.model';
 import { IGenusDocument } from '../database/genus/genus.types';
 import { FamilyModel } from '../database/family/family.model';
 import { IFamilyDocument } from '../database/family/family.types';
+import { VegetationModel } from '../database/vegetation/vegetation.model';
+import { IVegetationDocument } from '../database/vegetation/vegetation.types';
 
 
 
@@ -146,6 +148,14 @@ theRouter.get('/api/family/regex/:regex', async (req: Request, res: Response) =>
     req.params.regex as string
   );
   res.send(families);
+});
+
+//Test: curl -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/vegetation/abbreviation/FO | jq '.' (pretty print pipe)
+theRouter.get('/api/vegetation/abbreviation/:abbreviation', async (req: Request, res: Response) => {
+  const vegetation: IVegetationDocument = await VegetationModel.findByAbbreviation(
+    req.params.abbreviation as string
+  );
+  res.send(vegetation);
 });
 
 /*

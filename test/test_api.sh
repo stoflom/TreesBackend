@@ -51,4 +51,7 @@ curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/g
 echo "Testing: find family with regex .*ace.*"
 curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/family/regex/.*ace.* | jq '.'
 
+echo "Testing: find vegetation by abbreviation D"
+curl -s -H "Content-Type:application/x-www-form-urlencoded" localhost:5002/api/vegetation/abbreviation/D | jq '.'
+
 echo "--- All tests finished ---"

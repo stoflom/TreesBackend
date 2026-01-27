@@ -1,11 +1,13 @@
 import * as Mongoose from 'mongoose';
 import { TreeModel } from './tree/tree.model';
 import { GenusModel } from './genus/genus.model';
+import { VegetationModel } from './vegetation/vegetation.model';
 
 let database: Mongoose.Connection;
 
 export const aTreeModel = TreeModel;
 export const aGenusModel = GenusModel;
+export const aVegetationModel = VegetationModel;
 
 export const connect = () => {
   // add your own uri below
