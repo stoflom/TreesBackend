@@ -11,8 +11,6 @@ Deno.test({
     assertEquals(response.status, 200);
     const data = await response.json();
     assertExists(data[0]._id);
-    // The query returns objects that might not have the full genus object if it was projected
-    // but based on previous output it has genus name or identity
   },
 });
 
@@ -32,7 +30,6 @@ Deno.test({
 Deno.test({
   name: "API: find a tree by MongoDB _id",
   async fn() {
-    // Using a known ID from previous runs
     const id = "622a132e4953a86709cb9635";
     const response = await fetch(`${BASE_URL}/id/${id}`, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -45,9 +42,53 @@ Deno.test({
 });
 
 Deno.test({
-  name: "API: find common name matching regex (wag.*bietjie)",
+  name: "API: query JSON passthrough to MongoDB (genus and species)",
   async fn() {
-    const response = await fetch(`${BASE_URL}/cname/wag.*bietjie`, {
+    const response = await fetch(`${BASE_URL}/treesjq`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "genus.name": "Adenia", "species.name": "fruticosa" }),
+    });
+    assertEquals(response.status, 200);
+    const data = await response.json();
+    assertExists(data.length > 0);
+    assertEquals(data[0].genus.name, "Adenia");
+    assertEquals(data[0].species.name, "fruticosa");
+  },
+});
+
+Deno.test({
+  name: "API: query JSON passthrough to MongoDB (_id)",
+  async fn() {
+    const id = "622a132e4953a86709cb9635";
+    const response = await fetch(`${BASE_URL}/treesjq`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "_id": id }),
+    });
+    assertEquals(response.status, 200);
+    const data = await response.json();
+    assertExists(data.length > 0);
+    assertEquals(data[0]._id, id);
+  },
+});
+
+Deno.test({
+  name: "API: find common name matching regex (.*kameel.*)",
+  async fn() {
+    const response = await fetch(`${BASE_URL}/cname/.*kameel.*`, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    });
+    assertEquals(response.status, 200);
+    const data = await response.json();
+    assertExists(data.length > 0);
+  },
+});
+
+Deno.test({
+  name: "API: find scientific species name matching regex (ataxa)",
+  async fn() {
+    const response = await fetch(`${BASE_URL}/sname/ataxa`, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
     assertEquals(response.status, 200);
@@ -81,6 +122,19 @@ Deno.test({
 });
 
 Deno.test({
+  name: "API: find genus with regex Acac.*",
+  async fn() {
+    const response = await fetch(`${BASE_URL}/genus/regex/Acac.*`, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    });
+    assertEquals(response.status, 200);
+    const data = await response.json();
+    assertExists(data.length > 0);
+    assertExists(data[0].name.startsWith("Acac"));
+  },
+});
+
+Deno.test({
   name: "API: find family 'acanthaceae' in familycols",
   async fn() {
     const response = await fetch(`${BASE_URL}/family/acanthaceae`, {
@@ -88,8 +142,19 @@ Deno.test({
     });
     assertEquals(response.status, 200);
     const data = await response.json();
-    // Normalize comparison as database might have different casing but here it was 'Acanthaceae'
     assertEquals(data.name.toLowerCase(), "acanthaceae");
+  },
+});
+
+Deno.test({
+  name: "API: find family with regex .*ace.*",
+  async fn() {
+    const response = await fetch(`${BASE_URL}/family/regex/.*ace.*`, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    });
+    assertEquals(response.status, 200);
+    const data = await response.json();
+    assertExists(data.length > 0);
   },
 });
 

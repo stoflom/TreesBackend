@@ -83,10 +83,10 @@ theRouter.get('/api/id/:id', async (req: Request, res: Response) => {
   res.send(tree);
 });
 
-//Test: curl -X GET -H  "Content-Type: application/json"  -d  '{"genus.name": "Adenia" }' localhost:5002/api/treesjq | jq '.' (pretty print pipe)
-// curl -X GET -H  "Content-Type: application/json"  -d  '{ "_id" : "5fae3c24cd7252082772bdee"}' localhost:5002/api/treesjq | jq '.'
+//Test: curl -X POST -H  "Content-Type: application/json"  -d  '{"genus.name": "Adenia" }' localhost:5002/api/treesjq | jq '.' (pretty print pipe)
+// curl -X POST -H  "Content-Type: application/json"  -d  '{ "_id" : "5fae3c24cd7252082772bdee"}' localhost:5002/api/treesjq | jq '.'
 //  the query object is passed directly to MongoDB but cannot include e.g. /regex/
-theRouter.get('/api/treesjq/', async (req: Request, res: Response) => {
+theRouter.post('/api/treesjq/', async (req: Request, res: Response) => {
   const trees: ITreeDocument[] = await TreeModel.find(req.body).select({
     'species.name': 1,
     'genus.name': 1,
