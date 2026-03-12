@@ -5,6 +5,7 @@
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "npm:cors@^2.8.5": "2.8.6",
     "npm:express@^5.2.1": "5.2.1",
+    "npm:mongoose@*": "9.3.0",
     "npm:mongoose@^9.1.4": "9.3.0",
     "npm:morgan@^1.10.1": "1.10.1"
   },

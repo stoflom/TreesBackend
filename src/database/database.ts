@@ -21,31 +21,27 @@ export const connect = () => {
     return;
   }
 
-  mongoose.connect(uri, {
-  //  useNewUrlParser: true,
-  //  useUnifiedTopology: true,
-  //  useCreateIndex: true
-  });
+  mongoose.connect(uri);
 
   database = mongoose.connection;
 
-  database.once('open', async () => {
+  (database as any).once('open', async () => {
     console.log('Connected to database ' + uri);
   });
 
-  database.on('error', () => {
+  (database as any).on('error', () => {
     console.log('Database connection error' + uri);
   });
 
-  database.on('error', err => {
+  (database as any).on('error', (err: any) => {
     console.log('Database error' + err);
   });
 
-  database.on('disconnected', () => {
+  (database as any).on('disconnected', () => {
     console.log('Database disconnected' + uri);
   });
 
-  database.on('reconnected', () => {
+  (database as any).on('reconnected', () => {
     console.log('Database reconnected' + uri);
   });
 
