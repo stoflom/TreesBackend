@@ -1,8 +1,8 @@
 {
   "tasks": {
-    "start": "/home/stoflom/.deno/bin/deno run --allow-net --allow-read --allow-env src/server.ts",
-    "dev": "/home/stoflom/.deno/bin/deno run --allow-net --allow-read --allow-env --watch src/server.ts",
-    "build": "/home/stoflom/.deno/bin/deno cache src/server.ts"
+    "start": "deno run --allow-net --allow-read --allow-env src/server.ts",
+    "dev": "deno run --allow-net --allow-read --allow-env --watch src/server.ts",
+    "build": "deno cache src/server.ts"
   },
   "imports": {
     "express": "npm:express@^5.2.1",
