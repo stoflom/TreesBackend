@@ -2,7 +2,8 @@
   "tasks": {
     "start": "deno run -A src/server.ts",
     "dev": "deno run -A --watch src/server.ts",
-    "build": "deno cache src/server.ts"
+    "build": "deno cache src/server.ts",
+    "test": "deno test -A test/api.test.ts"
   },
   "imports": {
     "express": "npm:express@^5.2.1",

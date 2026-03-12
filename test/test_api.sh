@@ -13,10 +13,10 @@ echo "Testing: find details of a single tree by MongoDB _id"
 curl -s -H "application/x-www-form-urlencoded" localhost:5002/api/id/622a132e4953a86709cb9635
 
 echo "Testing: query JSON passthrough to MongoDB (genus and species)"
-curl -s -X GET -H "Content-Type: application/json" -d '{"genus.name": "Adenia", "species.name": "fruticosa" }' localhost:5002/api/treesjq | jq '.'
+curl -s -X POST -H "Content-Type: application/json" -d '{"genus.name": "Adenia", "species.name": "fruticosa" }' localhost:5002/api/treesjq | jq '.'
 
 echo "Testing: query JSON passthrough to MongoDB (_id)"
-curl -s -X GET -H "Content-Type: application/json" -d '{ "_id" : "622a132e4953a86709cb9635"}' localhost:5002/api/treesjq | jq '.'
+curl -s -X POST -H "Content-Type: application/json" -d '{ "_id" : "622a132e4953a86709cb9635"}' localhost:5002/api/treesjq | jq '.'
 
 echo "Testing: find common name matching regex"
 curl -s -H "application/x-www-form-urlencoded" localhost:5002/api/cname/.*kameel.*

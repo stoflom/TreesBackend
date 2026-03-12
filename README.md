@@ -12,6 +12,7 @@ The backend API for the South African Trees project. Built with **Deno**, **Type
 - [API Documentation](#-api-documentation)
   - [Tree Search](#tree-search)
   - [Genus & Family Search](#genus--family-search)
+  - [Vegetation Search](#vegetation-search)
   - [Advanced Queries](#advanced-queries)
 - [Testing](#-testing)
 - [Notes](#-notes)
@@ -22,7 +23,7 @@ The backend API for the South African Trees project. Built with **Deno**, **Type
 
 - **Deno** (v2.x recommended)
 - **MongoDB** (A running instance with the tree data)
-- **jq** (Optional, for formatting JSON output in tests)
+- **jq** (Recommended for formatting JSON output in terminal)
 
 ---
 
@@ -37,6 +38,11 @@ curl -fsSL https://deno.land/install.sh | sh
 ### 2. Cache Dependencies
 ```bash
 deno task build
+```
+
+### 3. Start the Server
+```bash
+deno task dev
 ```
 
 ---
@@ -61,68 +67,73 @@ Common tasks defined in `deno.json`:
 | **Start** | `deno task start` | Runs the production server |
 | **Dev** | `deno task dev` | Runs the server with auto-reload |
 | **Build** | `deno task build` | Caches all project dependencies |
-| **Dummy Data**| `deno run --allow-all src/scripts/createDummyData.ts` | Generates sample data |
+| **Test** | `deno task test` | Executes the Deno test suite |
+| **Dummy Data**| `deno run -A src/scripts/createDummyData.ts` | Generates sample data |
 
 ---
 
 ## 📖 API Documentation
 
-The server defaults to port `5002`. Most endpoints expect `application/x-www-form-urlencoded` or `application/json`.
+The server defaults to port `5002`. Most endpoints expect `application/json` or `application/x-www-form-urlencoded`.
 
 ### Tree Search
 
-| Description | Endpoint / Example |
-| :--- | :--- |
-| **By Genus** | `GET /api/treegenus/:genus` |
-| Example | `curl http://localhost:5002/api/treegenus/adenia | jq '.'` |
-| **By Genus & Species** | `GET /api/treegs/:genus/:species` |
-| Example | `curl http://localhost:5002/api/treegs/acacia/karroo | jq '.'` |
-| **By ID** | `GET /api/id/:id` |
-| Example | `curl http://localhost:5002/api/id/5fae3c24cd7252082772bdee | jq '.'` |
-| **By Common Name (Regex)** | `GET /api/cname/:regex` |
-| Example | `curl http://localhost:5002/api/cname/wag.*bietjie | jq '.'` |
-| **By Scientific Name (Regex)** | `GET /api/sname/:regex` |
-| Example | `curl http://localhost:5002/api/sname/ataxa | jq '.'` |
+| Description | Method | Endpoint / Example |
+| :--- | :--- | :--- |
+| **By Genus** | `GET` | `/api/treegenus/:name` <br> `curl http://localhost:5002/api/treegenus/adenia | jq '.'` |
+| **By Genus & Species** | `GET` | `/api/treegs/:genus/:species` <br> `curl http://localhost:5002/api/treegs/acacia/karroo | jq '.'` |
+| **By ID** | `GET` | `/api/id/:id` <br> `curl http://localhost:5002/api/id/5fae3c24cd7252082772bdee | jq '.'` |
+| **By Group** | `GET` | `/api/group/:groupNumber` <br> `curl http://localhost:5002/api/group/41 | jq '.'` |
+| **By Common Name** | `GET` | `/api/cname/:regex` <br> `curl http://localhost:5002/api/cname/wag.*bietjie | jq '.'` |
+| **By Scientific Name** | `GET` | `/api/sname/:regex` <br> `curl http://localhost:5002/api/sname/ataxa | jq '.'` |
+| **By Language & Name** | `GET` | `/api/cnlan/:lang/:regex` <br> `curl http://localhost:5002/api/cnlan/Afr/vlam | jq '.'` |
 
 ### Genus & Family Search
 
-| Description | Endpoint / Example |
-| :--- | :--- |
-| **Genus Lookup** | `GET /api/genus/:genus` |
-| Example | `curl http://localhost:5002/api/genus/adenia | jq '.'` |
-| **Genus Regex** | `GET /api/genus/regex/:regex` |
-| Example | `curl http://localhost:5002/api/genus/regex/^ad | jq '.'` |
-| **Family Lookup** | `GET /api/family/:family` |
-| Example | `curl http://localhost:5002/api/family/acanthaceae | jq '.'` |
+| Description | Method | Endpoint / Example |
+| :--- | :--- | :--- |
+| **Genus Lookup** | `GET` | `/api/genus/name/:name` <br> `curl http://localhost:5002/api/genus/name/adenia | jq '.'` |
+| **Genus Regex** | `GET` | `/api/genus/regex/:regex` <br> `curl http://localhost:5002/api/genus/regex/^ad | jq '.'` |
+| **Family Lookup** | `GET` | `/api/family/:name` <br> `curl http://localhost:5002/api/family/acanthaceae | jq '.'` |
+| **Family Regex** | `GET` | `/api/family/regex/:regex` <br> `curl http://localhost:5002/api/family/regex/ace.* | jq '.'` |
+
+### Vegetation Search
+
+| Description | Method | Endpoint / Example |
+| :--- | :--- | :--- |
+| **By Abbreviation** | `GET` | `/api/vegetation/abbreviation/:code` <br> `curl http://localhost:5002/api/vegetation/abbreviation/FO | jq '.'` |
 
 ### Advanced Queries
 
-- **JSON Passthrough:** Send a MongoDB query object directly.
+- **JSON Passthrough (POST):** Send a MongoDB query object directly.
   ```bash
-  curl -X GET -H "Content-Type: application/json" \
+  curl -X POST -H "Content-Type: application/json" \
     -d '{"genus.name": "Adenia", "species.name": "fruticosa"}' \
     http://localhost:5002/api/treesjq | jq '.'
   ```
 
-- **Filtering with `jq`:**
+- **Query Parameters (GET):** Filter trees using query parameters.
   ```bash
-  # Print only FSA numbers and Afrikaans names
-  curl http://localhost:5002/api/cname/wag.*bietjie | \
-    jq '{FSA: .[].FSAnumber, cnames: .[].cnames[] | select(.language=="Afr")}'
+  curl "http://localhost:5002/api/trees?genus.name=Adenia&species.name=gummifera" | jq '.'
   ```
 
 ---
 
 ## 🧪 Testing
 
-A suite of API tests is available in the `test/` directory.
+The project includes a Deno-based test suite that validates API endpoints.
 
+**Ensure the server is running (`deno task dev`) before executing tests.**
+
+```bash
+deno task test
+```
+
+You can also run the legacy shell script:
 ```bash
 cd test
 ./test_api.sh
 ```
-
-The script executes the documented `curl` commands and outputs JSON results, which can be formatted with `jq`.
 
 ---
 
@@ -130,7 +141,7 @@ The script executes the documented `curl` commands and outputs JSON results, whi
 
 - **CORS:** The server is configured to allow Cross-Origin Resource Sharing.
 - **Port:** Default port is `5002`.
-- **Database:** Ensure your MongoDB instance is accessible and the firewall allows connections on the specified port.
+- **Database:** MongoDB URI is currently hardcoded in `src/database/database.ts`.
 
 ---
 
