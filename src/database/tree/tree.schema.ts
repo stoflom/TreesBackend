@@ -1,6 +1,6 @@
-import * as Mongoose from 'mongoose';
-import { ITreeDocument, ITreeModel } from './tree.types';
-import{CommentSchema,CNamesSchema,CHyperlinksSchema} from '../common/common.schema';
+import mongoose from 'mongoose';
+import { ITreeDocument, ITreeModel } from './tree.types.ts';
+import{CommentSchema,CNamesSchema,CHyperlinksSchema} from '../common/common.schema.ts';
 
 import {
   findOneOrCreate,
@@ -10,17 +10,17 @@ import {
   findByCommonNameLanguageRegex,
   findBySpeciesNameRegex,
   findByGroup,
-} from './tree.statics';
+} from './tree.statics.ts';
 
-const TreeGenusSchema = new Mongoose.Schema(
+const TreeGenusSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    fref: { type: Mongoose.SchemaTypes.ObjectId, ref: 'GenusModel' }, //Reference to genuscols entry
+    fref: { type: mongoose.SchemaTypes.ObjectId, ref: 'GenusModel' }, //Reference to genuscols entry
   },
   { _id: false }
 );
 
-const SpeciesSchema = new Mongoose.Schema(
+const SpeciesSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     authority: String,
@@ -28,7 +28,7 @@ const SpeciesSchema = new Mongoose.Schema(
   { _id: false }
 );
 
-const SynonymSchema = new Mongoose.Schema(
+const SynonymSchema = new mongoose.Schema(
   {
     genus: String,
     species: SpeciesSchema,
@@ -39,7 +39,7 @@ const SynonymSchema = new Mongoose.Schema(
 );
 
 
-const TreeSchema = new Mongoose.Schema(
+const TreeSchema = new mongoose.Schema(
   {
     //_id automatically added to ItreeDocument by inheritance from Document
     genus: { type: TreeGenusSchema, required: true},

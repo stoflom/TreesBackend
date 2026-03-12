@@ -1,17 +1,20 @@
 # SA Trees Backend API
 
-This repository contains the backend API for the South African Trees project. It's a Node.js + TypeScript + Express + Mongoose application that expects a MongoDB database (originally populated by the SARTrees project).
-
-This project was originally based on the tutorial "Using TypeScript with MongoDB":
-https://medium.com/swlh/using-typescript-with-mongodb-393caf7adfef
+This repository contains the backend API for the South African Trees project. It's a Deno + TypeScript + Express + Mongoose application that expects a MongoDB database (originally populated by the SARTrees project).
 
 Prerequisites
-- Node.js (16+ recommended)
-- Typescript
-- Yarn 4
-- Express
-- Mongoose
+- Deno (2.x recommended)
+- MongoDB instance (running and accessible)
 - jq (for making pretty output of tests with *| jq '.'*)
+
+## Getting Started
+
+To install Deno, you can use:
+```bash
+curl -fsSL https://deno.land/install.sh | sh
+```
+
+The project uses `deno.json` for task management and dependency imports.
 
 ## Database
 
@@ -21,18 +24,26 @@ The schema and sample collections are in subdirectory *MongoDB/*.
 
 ## Scripts
 
-Common scripts
-- Create dummy data in the database: (this may not be fully up to date, refer Database above)
-    `yarn script createDummyData`
+Common tasks (defined in `deno.json`):
+- **Start the server:**
+    ```bash
+    deno task start
+    ```
 
-- Run the main test script (test.ts only tests MongoDB driver.):
-    `yarn script test`
+- **Start in development mode (auto-reload):**
+    ```bash
+    deno task dev
+    ```
 
-- Start the server:
-    `yarn start`
+- **Run scripts (e.g., create dummy data):**
+    ```bash
+    deno run --allow-all src/scripts/createDummyData.ts
+    ```
 
-- Enable debug logging for Express:
-    `DEBUG=express:* yarn start`
+- **Cache dependencies:**
+    ```bash
+    deno task build
+    ```
 
 ## Tests
     

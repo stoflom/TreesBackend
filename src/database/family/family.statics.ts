@@ -1,5 +1,5 @@
 //import { getUnpackedSettings } from 'http2';
-import { IFamily, IFamilyDocument } from './family.types';
+import { IFamily, IFamilyDocument } from './family.types.ts';
 
 export async function findOneOrCreate(
   Family: IFamily

@@ -1,0 +1,18 @@
+{
+  "tasks": {
+    "start": "/home/stoflom/.deno/bin/deno run --allow-net --allow-read --allow-env src/server.ts",
+    "dev": "/home/stoflom/.deno/bin/deno run --allow-net --allow-read --allow-env --watch src/server.ts",
+    "build": "/home/stoflom/.deno/bin/deno cache src/server.ts"
+  },
+  "imports": {
+    "express": "npm:express@^5.2.1",
+    "mongoose": "npm:mongoose@^9.1.4",
+    "morgan": "npm:morgan@^1.10.1",
+    "cors": "npm:cors@^2.8.5"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "dom"],
+    "strict": false
+  },
+  "nodeModulesDir": "auto"
+}

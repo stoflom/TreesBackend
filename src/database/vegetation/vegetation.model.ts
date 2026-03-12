@@ -1,8 +1,8 @@
-import * as Mongoose from 'mongoose';
-import VegetationSchema from './vegetation.schema';
-import { IVegetationDocument, IVegetationModel } from './vegetation.types';
+import mongoose from 'mongoose';
+import VegetationSchema from './vegetation.schema.ts';
+import { IVegetationDocument, IVegetationModel } from './vegetation.types.ts';
 
-export const VegetationModel = Mongoose.model<IVegetationDocument>(
+export const VegetationModel = mongoose.model<IVegetationDocument>(
   'vegetationcol', // This matches the MongoDB collection "vegetationcols"
   VegetationSchema
 ) as IVegetationModel;

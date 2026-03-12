@@ -1,15 +1,15 @@
-import * as Mongoose from 'mongoose';
-import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common.schema';
+import mongoose from 'mongoose';
+import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common.schema.ts';
 
 import {
   findByFamilyName,
   findByFamilyNameRegex,
   findByCommonNameLanguageRegex,
-} from './family.statics';
+} from './family.statics.ts';
 
 
 
-const FamilySchema = new Mongoose.Schema(
+const FamilySchema = new mongoose.Schema(
   {
     //_id automatically added to IFamilyDocument by inheritance from Document
     //Family: { type: FamilySchema, required: true},

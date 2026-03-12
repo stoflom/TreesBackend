@@ -1,4 +1,4 @@
-import { IGenusDocument } from './genus.types';
+import { IGenusDocument } from './genus.types.ts';
 
 /*
 export async function setLastUpdated(this: ITreeDocument): Promise<void> {

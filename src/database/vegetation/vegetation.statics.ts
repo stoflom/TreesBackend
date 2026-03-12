@@ -1,5 +1,5 @@
-import * as Mongoose from 'mongoose';
-import { IVegetationDocument } from './vegetation.types';
+import mongoose from 'mongoose';
+import { IVegetationDocument } from './vegetation.types.ts';
 
 export const findByAbbreviation = async function(
   abbreviation: string

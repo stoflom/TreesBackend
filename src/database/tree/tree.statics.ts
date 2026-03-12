@@ -1,5 +1,5 @@
 //import { getUnpackedSettings } from 'http2';
-import { ITree, ITreeDocument, ITreeModel } from './tree.types';
+import { ITree, ITreeDocument, ITreeModel } from './tree.types.ts';
 
 
 export async function findOneOrCreate(

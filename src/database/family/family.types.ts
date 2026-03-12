@@ -1,5 +1,5 @@
 import { Document, Model, Types } from 'mongoose';
-import {IComment,ICNames} from '../common/common.types'
+import {IComment,ICNames} from '../common/common.types.ts'
 
 
 export interface IFamily {

@@ -1,9 +1,9 @@
-import * as Mongoose from 'mongoose';
-import { TreeModel } from './tree/tree.model';
-import { GenusModel } from './genus/genus.model';
-import { VegetationModel } from './vegetation/vegetation.model';
+import mongoose from 'mongoose';
+import { TreeModel } from './tree/tree.model.ts';
+import { GenusModel } from './genus/genus.model.ts';
+import { VegetationModel } from './vegetation/vegetation.model.ts';
 
-let database: Mongoose.Connection;
+let database: mongoose.Connection;
 
 export const aTreeModel = TreeModel;
 export const aGenusModel = GenusModel;
@@ -21,13 +21,13 @@ export const connect = () => {
     return;
   }
 
-  Mongoose.connect(uri, {
+  mongoose.connect(uri, {
   //  useNewUrlParser: true,
   //  useUnifiedTopology: true,
   //  useCreateIndex: true
   });
 
-  database = Mongoose.connection;
+  database = mongoose.connection;
 
   database.once('open', async () => {
     console.log('Connected to database ' + uri);
@@ -57,5 +57,5 @@ export const disconnect = () => {
   if (!database) {
     return;
   }
-  Mongoose.disconnect();
+  mongoose.disconnect();
 };

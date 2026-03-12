@@ -1,4 +1,4 @@
-import { IFamilyDocument } from './family.types';
+import { IFamilyDocument } from './family.types.ts';
 
 /*
 export async function setLastUpdated(this: ITreeDocument): Promise<void> {

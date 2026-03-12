@@ -1,5 +1,5 @@
-import { connect, disconnect } from '../database/database';
-import { TreeModel } from '../database/tree/tree.model';
+import { connect, disconnect } from '../database/database.ts';
+import { TreeModel } from '../database/tree/tree.model.ts';
 import { Types } from 'mongoose';
 
 //Readonly test of SATrees database, trees collection (set connection appropriately in server.ts)

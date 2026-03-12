@@ -1,5 +1,5 @@
 //import { getUnpackedSettings } from 'http2';
-import { IGenus, IGenusDocument } from './genus.types';
+import { IGenus, IGenusDocument } from './genus.types.ts';
 
 export async function findOneOrCreate(
   genus: IGenus

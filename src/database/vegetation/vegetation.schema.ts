@@ -1,8 +1,8 @@
-import * as Mongoose from 'mongoose';
-import { IVegetationDocument, IVegetationModel } from './vegetation.types';
-import { findByAbbreviation } from './vegetation.statics';
+import mongoose from 'mongoose';
+import { IVegetationDocument, IVegetationModel } from './vegetation.types.ts';
+import { findByAbbreviation } from './vegetation.statics.ts';
 
-const VegetationSchema = new Mongoose.Schema(
+const VegetationSchema = new mongoose.Schema(
   {
     abbreviation: { type: String, required: true, unique: true },
     description: { type: String, required: true },

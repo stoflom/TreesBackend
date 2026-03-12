@@ -1,7 +1,7 @@
 // see: https://codingsans.com/blog/mongoose-models-using-typescript-classes
 
 import { Document, Model } from 'mongoose';
-import {IComment,ICNames, ICHyperlink} from '../common/common.types'
+import {IComment,ICNames, ICHyperlink} from '../common/common.types.ts'
 
 
 export interface IGenus {

@@ -1,12 +1,12 @@
-import * as Mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-export interface IVegetationDocument extends Mongoose.Document {
-  _id: Mongoose.Types.ObjectId;
+export interface IVegetationDocument extends mongoose.Document {
+  _id: mongoose.Types.ObjectId;
   abbreviation: string;
   description: string;
   name: string;
 }
 
-export interface IVegetationModel extends Mongoose.Model<IVegetationDocument> {
+export interface IVegetationModel extends mongoose.Model<IVegetationDocument> {
   findByAbbreviation(abbreviation: string): Promise<IVegetationDocument>;
 }

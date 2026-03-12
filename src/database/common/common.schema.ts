@@ -1,10 +1,10 @@
 //Common subschema types used by other schemas
 
-import * as Mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 
 //Comments
-export const CommentSchema = new Mongoose.Schema(
+export const CommentSchema = new mongoose.Schema(
     {
         text: String,
         reference: String,
@@ -13,7 +13,7 @@ export const CommentSchema = new Mongoose.Schema(
 );
 
 //Common names
-export const CNamesSchema = new Mongoose.Schema(
+export const CNamesSchema = new mongoose.Schema(
     {
         language: String,
         names: { type: [String], default: undefined },
@@ -22,7 +22,7 @@ export const CNamesSchema = new Mongoose.Schema(
 );
 
 //Hyperlinks
-export const CHyperlinksSchema = new Mongoose.Schema(
+export const CHyperlinksSchema = new mongoose.Schema(
     {
         language: String,   //language of the site
         org: String,        //name of the site organization

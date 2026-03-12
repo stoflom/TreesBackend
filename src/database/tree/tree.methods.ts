@@ -1,4 +1,4 @@
-import { ITreeDocument } from './tree.types';
+import { ITreeDocument } from './tree.types.ts';
 
 /*
 export async function setLastUpdated(this: ITreeDocument): Promise<void> {

@@ -1,12 +1,12 @@
 import { Router, Request, Response } from 'express';
-import { TreeModel } from '../database/tree/tree.model';
-import { ITreeDocument } from '../database/tree/tree.types';
-import { GenusModel } from '../database/genus/genus.model';
-import { IGenusDocument } from '../database/genus/genus.types';
-import { FamilyModel } from '../database/family/family.model';
-import { IFamilyDocument } from '../database/family/family.types';
-import { VegetationModel } from '../database/vegetation/vegetation.model';
-import { IVegetationDocument } from '../database/vegetation/vegetation.types';
+import { TreeModel } from '../database/tree/tree.model.ts';
+import { ITreeDocument } from '../database/tree/tree.types.ts';
+import { GenusModel } from '../database/genus/genus.model.ts';
+import { IGenusDocument } from '../database/genus/genus.types.ts';
+import { FamilyModel } from '../database/family/family.model.ts';
+import { IFamilyDocument } from '../database/family/family.types.ts';
+import { VegetationModel } from '../database/vegetation/vegetation.model.ts';
+import { IVegetationDocument } from '../database/vegetation/vegetation.types.ts';
 
 
 

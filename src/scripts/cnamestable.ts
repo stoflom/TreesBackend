@@ -1,6 +1,6 @@
-import { connect, disconnect } from '../database/database';
+import { connect, disconnect } from '../database/database.ts';
 import { Types } from 'mongoose';
-import { TreeModel } from '../database/tree/tree.model';
+import { TreeModel } from '../database/tree/tree.model.ts';
 
 //Dumps common names data for  SANBI
 

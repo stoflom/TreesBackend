@@ -1,5 +1,5 @@
-import { TreeModel } from '../database/tree/tree.model';
-import { connect, disconnect } from '../database/database';
+import { TreeModel } from '../database/tree/tree.model.ts';
+import { connect, disconnect } from '../database/database.ts';
 import { Types } from 'mongoose';
 
 (async () => {

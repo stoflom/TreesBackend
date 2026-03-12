@@ -1,14 +1,14 @@
-import * as Mongoose from 'mongoose';
-import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common.schema';
+import mongoose from 'mongoose';
+import { CommentSchema, CNamesSchema, CHyperlinksSchema } from '../common/common.schema.ts';
 
 import {
   findByGenusName,
   findByGenusNameRegex
- } from './genus.statics';
+ } from './genus.statics.ts';
 
 
 
-const GenusSchema = new Mongoose.Schema(
+const GenusSchema = new mongoose.Schema(
   {
     //_id automatically added to IGenusDocument by inheritance from Document
     //genus: { type: GenusSchema, required: true},
