@@ -10,7 +10,9 @@ export const aGenusModel = GenusModel;
 export const aVegetationModel = VegetationModel;
 
 export const connect = () => {
-  const uri = Deno.env.get('MONGODB_URI') || 'mongodb://192.168.0.8:27017/SATrees';
+  // MongoDB URI from .env (see .env.example for format).
+  // Default fallback is localhost — change if MongoDB is remote.
+  const uri = Deno.env.get('MONGODB_URI') || 'mongodb://localhost:27017/SATrees';
 
   if (database) {
     //Avoiding connecting again
