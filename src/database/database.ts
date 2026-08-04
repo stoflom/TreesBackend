@@ -10,11 +10,7 @@ export const aGenusModel = GenusModel;
 export const aVegetationModel = VegetationModel;
 
 export const connect = () => {
-  // add your own uri below
-  const uri =
-    //  'mongodb+srv://<treename>:<password>@cluster0-v6q0g.mongodb.net/test?retryWrites=true&w=majority';
-    // 'mongodb://localhost:27017/TreesTest'; //SET CORRECT DB NAME HERE
-    'mongodb://fedora-msi:27017/SATrees'; //node does not resolve localhost > v17
+  const uri = Deno.env.get('MONGODB_URI') || 'mongodb://192.168.0.8:27017/SATrees';
 
   if (database) {
     //Avoiding connecting again
