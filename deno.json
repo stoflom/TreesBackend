@@ -1,11 +1,12 @@
 {
   "tasks": {
-    "start": "deno run -A --env-file .env src/server.ts",
-    "dev": "deno run -A --watch --env-file .env src/server.ts",
+    "start": "deno run -A src/server.ts",
+    "dev": "deno run -A --watch src/server.ts",
     "build": "deno cache src/server.ts",
     "test": "deno test -A test/api.test.ts"
   },
   "imports": {
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.7",
     "express": "npm:express@^5.2.1",
     "mongoose": "npm:mongoose@^9.1.4",
     "morgan": "npm:morgan@^1.10.1",

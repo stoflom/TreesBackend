@@ -2,6 +2,7 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/assert@*": "1.0.19",
+    "jsr:@std/dotenv@~0.225.7": "0.225.8",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "npm:cors@^2.8.5": "2.8.6",
     "npm:express@^5.2.1": "5.2.1",
@@ -15,6 +16,9 @@
       "dependencies": [
         "jsr:@std/internal"
       ]
+    },
+    "@std/dotenv@0.225.8": {
+      "integrity": "27b8c1a9d00cbf938345a5924487c04d9b27bdd7e7bd1983f54bcf76d0a0174a"
     },
     "@std/internal@1.0.12": {
       "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
@@ -528,6 +532,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@std/dotenv@~0.225.7",
       "npm:cors@^2.8.5",
       "npm:express@^5.2.1",
       "npm:mongoose@^9.1.4",

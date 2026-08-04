@@ -1,5 +1,6 @@
 
 import { connect } from './database/database.ts';
+import '@std/dotenv/load';
 import { theRouter } from './routes/routes.ts';
 import morgan from 'morgan';
 import express from 'express';
