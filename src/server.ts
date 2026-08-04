@@ -10,7 +10,11 @@ const port = 5002;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:4200', 'http://localhost:5002', 'http://192.168.0.10:4200', 'http://192.168.0.10:5002'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json({ strict: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('combined'));
