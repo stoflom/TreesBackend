@@ -25,7 +25,11 @@ const version = readFileSync(path.join(repoRoot, 'VERSION'), 'utf-8').trim();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:4200', 'http://localhost:5002', 'http://192.168.0.10:4200', 'http://192.168.0.10:5002'],
+  origin: [
+    'http://localhost:4200', 'http://localhost:5002',
+    'http://127.0.0.1:4200', 'http://127.0.0.1:5002',
+    'http://192.168.0.10:4200', 'http://192.168.0.10:5002',
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -49,6 +53,6 @@ app.get('{*path}', (_req, res) => {
 
 connect();
 
-app.listen(port, () => {
-  console.log(`\nServer started on http://127.0.0.1:${port}\n`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`\nServer started on http://0.0.0.0:${port}\n`);
 });
