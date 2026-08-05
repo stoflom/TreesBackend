@@ -1,6 +1,6 @@
 # SATrees Backend API
 
-Node.js/Express/Mongoose/MongoDB backend for the SATrees frontend application. Provides RESTful endpoints for searching Southern African tree data (1600+ species) by common name, genus, species, and more.
+Deno/Express/Mongoose/MongoDB backend for the SATrees frontend application. Provides RESTful endpoints for searching Southern African tree data (1600+ species) by common name, genus, species, and more. Serves the Angular frontend statically on port **5002**.
 
 ## Prerequisites
 
@@ -27,9 +27,12 @@ deno task dev
 
 # Production mode
 deno task start
+
+# Or use the root start script (builds frontend + starts backend)
+cd .. && ./start.sh
 ```
 
-The server listens on port **5002**.
+The server listens on port **5002** and serves the Angular frontend statically.
 
 ### 3. Populate the database (optional)
 
@@ -41,16 +44,12 @@ deno run -A --env-file .env src/scripts/createDummyData.ts
 
 All endpoints are under `/api`. The examples below use `localhost:5002` for convenience.
 
-> **⚠️ Important: Frontend connection requires an IP address or hostname**
->
-> The backend's CORS configuration rejects requests from `localhost`. This means the
-> **frontend application** (Angular) cannot connect to the backend via `localhost`.
-> It must use an IP address or hostname instead (e.g., `192.168.0.8:5002` or
-> `fedora-msi:5002`).
->
-> The `curl` examples below work with `localhost` because they are not subject to
-> browser CORS restrictions. Replace `localhost` with your backend address when
-> configuring the frontend in `src/environments/environment.ts`.
+### Application Version
+
+```bash
+curl http://localhost:5002/api/version
+# {"version": "0.0.1"}
+```
 
 ### Search trees by genus
 
@@ -139,12 +138,14 @@ src/
 
 ## CORS
 
-CORS is enabled on the Express server, but the configuration **rejects `localhost`** as an allowed origin.
+CORS is enabled on the Express server. The following origins are allowed:
 
-This means:
-- The **frontend** (Angular app) must connect to the backend using an IP address or hostname (e.g., `192.168.0.8:5002` or `fedora-msi:5002`)
-- Set the backend URL in `src/environments/environment.ts` accordingly
-- The `curl` examples in this README work with `localhost` because they bypass browser CORS restrictions
+- `http://localhost:4200` — Angular dev server
+- `http://localhost:5002` — Backend dev server
+- `http://192.168.0.10:4200` — Angular dev server on network
+- `http://192.168.0.10:5002` — Backend on network
+
+In production, the Angular frontend is served statically by the backend, so no CORS is needed.
 
 If you need to change the CORS configuration, modify the `cors()` options in `src/server.ts`.
 

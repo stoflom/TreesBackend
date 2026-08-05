@@ -169,3 +169,13 @@ Deno.test({
     assertEquals(data.abbreviation, "D");
   },
 });
+
+Deno.test({
+  name: "API: get application version",
+  async fn() {
+    const response = await fetch(`${BASE_URL}/version`);
+    assertEquals(response.status, 200);
+    const data = await response.json();
+    assertExists(data.version);
+  },
+});

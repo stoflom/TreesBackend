@@ -3,6 +3,8 @@
     "start": "deno run -A src/server.ts",
     "dev": "deno run -A --watch src/server.ts",
     "build": "deno cache src/server.ts",
+    "build:frontend": "cd ../TreesFrontend && yarn build",
+    "build:all": "deno task build:frontend && deno task build",
     "test": "deno test -A test/api.test.ts"
   },
   "imports": {
