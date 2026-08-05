@@ -48,7 +48,7 @@ All endpoints are under `/api`. The examples below use `localhost:5002` for conv
 
 ```bash
 curl http://localhost:5002/api/version
-# {"version": "0.0.1"}
+# {"version": "1.0.0"}
 ```
 
 ### Search trees by genus
@@ -135,19 +135,6 @@ src/
 ├── scripts/           # Utility scripts (e.g. createDummyData)
 └── server.ts          # Express app entry point
 ```
-
-## CORS
-
-CORS is enabled on the Express server. The following origins are allowed:
-
-- `http://localhost:4200` — Angular dev server
-- `http://localhost:5002` — Backend dev server
-- `http://192.168.0.10:4200` — Angular dev server on network
-- `http://192.168.0.10:5002` — Backend on network
-
-In production, the Angular frontend is served statically by the backend, so no CORS is needed.
-
-If you need to change the CORS configuration, modify the `cors()` options in `src/server.ts`.
 
 ## Further help
 
