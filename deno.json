@@ -10,8 +10,8 @@
   "imports": {
     "@std/dotenv": "jsr:@std/dotenv@^0.225.7",
     "express": "npm:express@^5.2.1",
-    "mongoose": "npm:mongoose@^9.1.4",
-    "morgan": "npm:morgan@^1.10.1",
+    "mongoose": "npm:mongoose@^9.9.2",
+    "morgan": "npm:morgan@^1.11.0",
     "cors": "npm:cors@^2.8.5"
   },
   "compilerOptions": {
